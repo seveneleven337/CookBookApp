@@ -2,12 +2,13 @@
   "name": "CookBookApp",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint apps/**/*.{ts,tsx,js,jsx} --ignore-pattern '**/.next/**' --max-warnings=0",
+    "lint": "eslint 'apps/**/*.{ts,tsx,js,jsx}' --ignore-pattern '**/.next/**' --max-warnings=0",
     "format": "prettier --write apps/**/*.{ts,tsx,js,jsx,json,md}",
     "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "prettier": "^3.8.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^9.39.4",
