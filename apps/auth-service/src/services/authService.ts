@@ -1,3 +1,7 @@
+//dotenv configuration is used on local development environment when is use npm run dev
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env.dev' });
+
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
