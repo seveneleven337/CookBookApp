@@ -59,5 +59,9 @@ Microservice2: implement feature
 ## Docker compose
 
 ```bash
-docker compose --env-file .env.dev up -d
+docker compose --env-file .env.dev up -d --build
 ```
+
+## Auth Service
+
+The Auth Service is a standalone microservice responsible for user authentication.
