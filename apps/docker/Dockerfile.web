@@ -1,0 +1,26 @@
+# docker/Dockerfile.web
+
+FROM node:20-alpine AS deps
+WORKDIR /apps
+
+COPY apps/web/package*.json ./
+RUN npm install
+
+FROM node:20-alpine AS builder
+WORKDIR /apps
+
+COPY --from=deps /apps/node_modules ./node_modules
+COPY apps/web/ .
+
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /apps
+
+ENV NODE_ENV=production
+
+COPY --from=builder /apps ./
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
