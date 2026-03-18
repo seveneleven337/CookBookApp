@@ -21,7 +21,8 @@ services:
     ports:
       - '${AUTH_SERVICE_PORT}:4000'
     depends_on:
-      - auth-db
+      auth-db:
+        condition: service_healthy
     environment:
       AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
       JWT_SECRET: ${JWT_SECRET}
@@ -44,6 +45,12 @@ services:
       - '${AUTH_DB_PORT}:3306'
     volumes:
       - auth-db-data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mariadb-admin', '--protocol=tcp', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
