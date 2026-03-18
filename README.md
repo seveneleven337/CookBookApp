@@ -55,3 +55,9 @@ Microservice2: implement feature
 - Keep commit messages **short and descriptive**.
 - Always use the **prefix related to the component** you are modifying.
 - Create a new branch using the correct branch type before starting development.
+
+## Docker compose
+
+```bash
+docker compose --env-file .env.dev up -d --build
+```
