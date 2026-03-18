@@ -1,6 +1,10 @@
 import app from './app';
 import { connectDB } from './config/db';
 import { seedUsers } from './seeds/seed';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const PORT = Number(process.env.AUTH_SERVICE_PORT) || 4000;
 const startServer = async () => {
