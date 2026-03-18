@@ -42,7 +42,7 @@ web: implement some button
 
 ### Authentication
 
-Auth: implement authentication logic
+auth-service: implement authentication logic
 
 ### Microservice 2
 
@@ -61,3 +61,7 @@ Microservice2: implement feature
 ```bash
 docker compose --env-file .env.dev up -d --build
 ```
+
+## Auth Service
+
+The Auth Service is a standalone microservice responsible for user authentication.
