@@ -23,20 +23,50 @@ services:
     depends_on:
       - auth-db
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: mysql://${AUTH_DB_USER}:${AUTH_DB_PASSWORD}@auth-db:${AUTH_DB_PORT}/${AUTH_DB_NAME}
 
   auth-db:
-    image: postgres:15
+    image: mariadb:11
     container_name: auth-db
     restart: always
     environment:
-      POSTGRES_DB: ${AUTH_DB_NAME}
-      POSTGRES_USER: ${AUTH_DB_USER}
-      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      MYSQL_DATABASE: ${AUTH_DB_NAME}
+      MYSQL_USER: ${AUTH_DB_USER}
+      MYSQL_PASSWORD: ${AUTH_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${AUTH_DB_ROOT_PASSWORD}
     ports:
-      - '${AUTH_DB_PORT}:5432'
+      - '${AUTH_DB_PORT}:3306'
     volumes:
-      - auth-db-data:/var/lib/postgresql/data
+      - auth-db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - '6060:80'
+    environment:
+      PMA_HOST: auth-db
+      PMA_PORT: ${AUTH_DB_PORT}
+      PMA_USER: ${AUTH_DB_USER}
+      PMA_PASSWORD: ${AUTH_DB_PASSWORD}
+    depends_on:
+      - auth-db
+    volumes:
+      - phpmyadmin-data:/etc/phpmyadmin
+
+  kalle-db:
+    image: postgres:15
+    container_name: kalle-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${KALLE_DB_NAME}
+      POSTGRES_USER: ${KALLE_DB_USER}
+      POSTGRES_PASSWORD: ${KALLE_DB_PASSWORD}
+    ports:
+      - '${KALLE_DB_PORT}:5432'
+    volumes:
+      - kalle-db-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -48,10 +78,12 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     depends_on:
-      - auth-db
+      - kalle-db
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   auth-db-data:
+  kalle-db-data:
+  phpmyadmin-data:
   pgadmin-data:
