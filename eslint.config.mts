@@ -7,7 +7,7 @@ import { defineConfig } from 'eslint/config';
 export default defineConfig([
   // top‑level config: ignores only
   {
-    ignores: ['**/.next/**', '**/node_modules/**'],
+    ignores: ['**/.next/**', '**/node_modules/**', '**/dist/**'],
   },
   // apply js recommended to all source files
   {
