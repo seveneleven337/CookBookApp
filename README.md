@@ -44,9 +44,9 @@ web: implement some button
 
 auth-service: implement authentication logic
 
-### Microservice 2
+### Recipe Management Service
 
-Microservice2: implement feature
+recipe-management-service: implement feature
 
 ---
 
@@ -65,3 +65,7 @@ docker compose --env-file .env.dev up -d --build
 ## Auth Service
 
 The Auth Service is a standalone microservice responsible for user authentication.
+
+## Recipe Management Service
+
+The Recipe Management Service stores and serves user recipes (PostgreSQL, Express). HTTP routes are mounted at `/api/recipes` (for example `GET /api/recipes?user_id=1`). Health: `GET /health`.

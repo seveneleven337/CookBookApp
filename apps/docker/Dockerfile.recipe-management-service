@@ -2,11 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY apps/user-recipe-api/package*.json ./
+COPY apps/recipe-management-service/package*.json ./
 
 RUN npm ci
 
-COPY apps/user-recipe-api/ .
+COPY apps/recipe-management-service/ .
 
 RUN npm run build
 

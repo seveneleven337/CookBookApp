@@ -68,59 +68,34 @@ services:
     volumes:
       - phpmyadmin-data:/etc/phpmyadmin
 
-  kalle-db:
-    image: postgres:15
-    container_name: kalle-db
-    restart: always
-    environment:
-      POSTGRES_DB: ${KALLE_DB_NAME}
-      POSTGRES_USER: ${KALLE_DB_USER}
-      POSTGRES_PASSWORD: ${KALLE_DB_PASSWORD}
+  recipe-management-service:
+    build:
+      context: .
+      dockerfile: apps/docker/Dockerfile.recipe-management-service
+    container_name: recipe-management-service
     ports:
-      - '${KALLE_DB_PORT}:5432'
-    volumes:
-      - kalle-db-data:/var/lib/postgresql/data
-  # This is used to ensure correct schema is applied to the database
-  user-recipe-migrate:
-    image: postgres:15
-    container_name: user-recipe-migrate
+      - '${RECIPE_MANAGEMENT_SERVICE_PORT}:5001'
     depends_on:
       user-db:
         condition: service_healthy
     environment:
-      PGPASSWORD: ${USER_DB_PASSWORD}
-      USER_DB_USER: ${USER_DB_USER}
-      USER_DB_NAME: ${USER_DB_NAME}
-    volumes:
-      - ./apps/user-recipe-api/sql/schema.sql:/schema.sql
-    command: sh -c "psql -h user-db -U $$USER_DB_USER -d $$USER_DB_NAME -f /schema.sql"
-
-  user-recipe-api:
-    build:
-      context: .
-      dockerfile: apps/docker/Dockerfile.user-recipe-api
-    container_name: user-recipe-api
-    ports:
-      - '${USER_RECIPE_API_PORT}:5001'
-    depends_on:
-      user-recipe-migrate:
-        condition: service_completed_successfully
-      user-db:
-        condition: service_started
-    environment:
-      DATABASE_URL: postgresql://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
-      PORT: '5001'
+      RECIPE_MANAGEMENT_SERVICE_PORT: '5001'
+      RECIPE_DB_NAME: ${RECIPE_DB_NAME}
+      RECIPE_DB_USER: ${RECIPE_DB_USER}
+      RECIPE_DB_PASSWORD: ${RECIPE_DB_PASSWORD}
+      RECIPE_DB_HOST: user-db
+      RECIPE_DB_PORT: '5432'
 
   user-db:
     image: postgres:15
     container_name: user-db
     restart: always
     environment:
-      POSTGRES_DB: ${USER_DB_NAME}
-      POSTGRES_USER: ${USER_DB_USER}
-      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+      POSTGRES_DB: ${RECIPE_DB_NAME}
+      POSTGRES_USER: ${RECIPE_DB_USER}
+      POSTGRES_PASSWORD: ${RECIPE_DB_PASSWORD}
     ports:
-      - '${USER_DB_PORT}:5432'
+      - '${RECIPE_DB_PORT}:5432'
     volumes:
       - user-db-data:/var/lib/postgresql/data
     healthcheck:
@@ -140,13 +115,12 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     depends_on:
-      - kalle-db
+      - user-db
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   auth-db-data:
-  kalle-db-data:
   phpmyadmin-data:
   user-db-data:
   pgadmin-data:
