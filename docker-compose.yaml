@@ -1,6 +1,30 @@
 version: '3.9'
 
 services:
+  traefik:
+    image: traefik:v3.6.10
+    container_name: traefik
+    command:
+      - '--configFile=/app/configs/traefik.toml'
+    volumes:
+      - ./apps/traefik/traefik.toml:/app/configs/traefik.toml:ro
+      - ./apps/traefik/dynamic_conf.toml:/app/configs/dynamic_conf.toml:ro
+      - ./apps/traefik/certs:/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.localhost`)'
+      - 'traefik.http.routers.traefik.entrypoints=websecure'
+      - 'traefik.http.routers.traefik.tls=true'
+      - 'traefik.http.routers.traefik.service=api@internal'
+    environment:
+      - TZ=Europe/Helsinki
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - cookbookapp
+
   web:
     build:
       context: .
@@ -12,6 +36,14 @@ services:
       - auth
     environment:
       AUTH_SERVICE_URL: http://auth:${AUTH_SERVICE_PORT}
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.web.rule=Host(`web.localhost`)'
+      - 'traefik.http.routers.web.entrypoints=websecure'
+      - 'traefik.http.routers.web.tls=true'
+      - 'traefik.http.services.web.loadbalancer.server.port=3000'
+    networks:
+      - cookbookapp
 
   auth:
     build:
@@ -31,6 +63,14 @@ services:
       AUTH_DB_PASSWORD: ${AUTH_DB_PASSWORD}
       AUTH_DB_HOST: auth-db
       AUTH_DB_PORT: ${AUTH_DB_PORT}
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.auth.rule=Host(`auth.localhost`)'
+      - 'traefik.http.routers.auth.entrypoints=websecure'
+      - 'traefik.http.routers.auth.tls=true'
+      - 'traefik.http.services.auth.loadbalancer.server.port=4000'
+    networks:
+      - cookbookapp
 
   auth-db:
     image: mariadb:11
@@ -51,6 +91,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 10s
+    networks:
+      - cookbookapp
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -67,6 +109,14 @@ services:
       - auth-db
     volumes:
       - phpmyadmin-data:/etc/phpmyadmin
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.localhost`)'
+      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
+      - 'traefik.http.routers.phpmyadmin.tls=true'
+      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
+    networks:
+      - cookbookapp
 
   recipe-management-service:
     build:
@@ -118,9 +168,22 @@ services:
       - user-db
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)'
+      - 'traefik.http.routers.pgadmin.entrypoints=websecure'
+      - 'traefik.http.routers.pgadmin.tls=true'
+      - 'traefik.http.services.pgadmin.loadbalancer.server.port=80'
+    networks:
+      - cookbookapp
 
 volumes:
   auth-db-data:
   phpmyadmin-data:
   user-db-data:
   pgadmin-data:
+
+networks:
+  cookbookapp:
+    name: cookbookapp
+    driver: bridge
