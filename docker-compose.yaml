@@ -41,7 +41,7 @@ services:
       - 'traefik.http.routers.web.rule=Host(`web.localhost`)'
       - 'traefik.http.routers.web.entrypoints=websecure'
       - 'traefik.http.routers.web.tls=true'
-      - 'traefik.http.services.web.loadbalancer.server.port=3000'
+      - 'traefik.http.services.web.loadbalancer.server.port=${WEB_PORT}'
     networks:
       - cookbookapp
 
@@ -68,7 +68,7 @@ services:
       - 'traefik.http.routers.auth.rule=Host(`auth.localhost`)'
       - 'traefik.http.routers.auth.entrypoints=websecure'
       - 'traefik.http.routers.auth.tls=true'
-      - 'traefik.http.services.auth.loadbalancer.server.port=4000'
+      - 'traefik.http.services.auth.loadbalancer.server.port=${AUTH_SERVICE_PORT}'
     networks:
       - cookbookapp
 
@@ -109,12 +109,6 @@ services:
       - auth-db
     volumes:
       - phpmyadmin-data:/etc/phpmyadmin
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.localhost`)'
-      - 'traefik.http.routers.phpmyadmin.entrypoints=websecure'
-      - 'traefik.http.routers.phpmyadmin.tls=true'
-      - 'traefik.http.services.phpmyadmin.loadbalancer.server.port=80'
     networks:
       - cookbookapp
 
@@ -135,6 +129,14 @@ services:
       RECIPE_DB_PASSWORD: ${RECIPE_DB_PASSWORD}
       RECIPE_DB_HOST: user-db
       RECIPE_DB_PORT: '5432'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.recipe-management-service.rule=Host(`recipe-management.localhost`)'
+      - 'traefik.http.routers.recipe-management-service.entrypoints=websecure'
+      - 'traefik.http.routers.recipe-management-service.tls=true'
+      - 'traefik.http.services.recipe-management-service.loadbalancer.server.port=${RECIPE_MANAGEMENT_SERVICE_PORT}'
+    networks:
+      - cookbookapp
 
   user-db:
     image: postgres:15
@@ -154,6 +156,8 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
+    networks:
+      - cookbookapp
 
   pgadmin:
     image: dpage/pgadmin4
@@ -168,12 +172,6 @@ services:
       - user-db
     volumes:
       - pgadmin-data:/var/lib/pgadmin
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)'
-      - 'traefik.http.routers.pgadmin.entrypoints=websecure'
-      - 'traefik.http.routers.pgadmin.tls=true'
-      - 'traefik.http.services.pgadmin.loadbalancer.server.port=80'
     networks:
       - cookbookapp
 
