@@ -175,11 +175,34 @@ services:
     networks:
       - cookbookapp
 
+  grafana:
+    image: grafana/grafana:12.4.0
+    container_name: grafana
+    restart: always
+    environment:
+      TZ: Europe/Helsinki
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_SERVER_ROOT_URL: ${GRAFANA_ROOT_URL}
+    ports:
+      - '${GRAFANA_PORT}:3000'
+    volumes:
+      - grafana-data:/var/lib/grafana
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.grafana.rule=Host(`grafana.localhost`)'
+      - 'traefik.http.routers.grafana.entrypoints=websecure'
+      - 'traefik.http.routers.grafana.tls=true'
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+    networks:
+      - cookbookapp
+
 volumes:
   auth-db-data:
   phpmyadmin-data:
   user-db-data:
   pgadmin-data:
+  grafana-data:
 
 networks:
   cookbookapp:
