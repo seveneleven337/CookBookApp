@@ -175,6 +175,24 @@ services:
     networks:
       - cookbookapp
 
+  prometheus:
+    image: prom/prometheus:v3.10.0
+    container_name: prometheus
+    restart: always
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./apps/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - '${PROMETHEUS_PORT}:9090'
+    depends_on:
+      - traefik
+    networks:
+      - cookbookapp
+
   grafana:
     image: grafana/grafana:12.4.0
     container_name: grafana
@@ -203,6 +221,7 @@ volumes:
   user-db-data:
   pgadmin-data:
   grafana-data:
+  prometheus-data:
 
 networks:
   cookbookapp:
