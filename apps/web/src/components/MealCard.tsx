@@ -59,11 +59,11 @@ export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
         <button
           onClick={fetchNewMeal}
           disabled={loading}
-          className="w-14 h-14 rounded-full bg-red-100 text-red-500 text-2xl flex items-center justify-center shadow hover:bg-red-200 transition disabled:opacity-50"
+          className="w-14 h-14 rounded-full bg-red-100 text-red-500 text-2xl flex items-center justify-center shadow hover:bg-red-200 transition disabled:opacity-50 cursor-pointer"
         >
           {loading ? '...' : '✕'}
         </button>
-        <button className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition">
+        <button className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition cursor-pointer">
           ♥
         </button>
       </div>
