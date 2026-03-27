@@ -43,5 +43,13 @@ export const authenticateUser = async ({
     expiresIn: '1h',
   });
 
-  return token;
+  return {
+    token,
+    user: {
+      id: user.id,
+      name: user.name,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  };
 };
