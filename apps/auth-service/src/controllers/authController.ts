@@ -15,8 +15,8 @@ export const registerUser = async (req: Request, res: Response) => {
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    const token = await authenticateUser({ email, password });
-    res.json({ token });
+    const { token, user } = await authenticateUser({ email, password });
+    res.json({ token, user });
   } catch (err) {
     const error = err instanceof Error ? err : new Error('Unknown error');
     res.status(400).json({ error: error.message });
