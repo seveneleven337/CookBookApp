@@ -2,11 +2,19 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Meal } from '@/lib/recipe-api';
+import { Meal, saveRecipe } from '@/lib/recipe-api';
+import { useAuthStore } from '../store/authStore';
 
 export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
   const [meal, setMeal] = useState<Meal>(initialMeal);
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const { user } = useAuthStore();
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    window.setTimeout(() => setToastMessage(null), 1800);
+  };
 
   async function fetchNewMeal() {
     setLoading(true);
@@ -15,6 +23,21 @@ export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
     setMeal(newMeal);
     setLoading(false);
   }
+
+  const handleSave = async () => {
+    if (!user) {
+      showToast('Please login to save recipes!');
+      return;
+    }
+
+    try {
+      await saveRecipe(user.id, meal.strMeal, meal.strInstructions);
+      showToast('Recipe saved!');
+      await fetchNewMeal();
+    } catch {
+      showToast('Failed to save recipe!');
+    }
+  };
 
   return (
     <div className="relative w-96 rounded-3xl overflow-hidden shadow-2xl bg-white">
@@ -63,10 +86,32 @@ export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
         >
           {loading ? '...' : '✕'}
         </button>
-        <button className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition cursor-pointer">
+        <button
+          onClick={handleSave}
+          className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition cursor-pointer"
+        >
           ♥
         </button>
       </div>
+
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="
+      fixed 
+      top-1/2 left-1/2 
+      -translate-x-1/2 -translate-y-1/2 
+      z-50 
+      rounded-lg 
+      bg-black/80 
+      px-4 py-2 
+      text-sm text-white
+    "
+        >
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 }

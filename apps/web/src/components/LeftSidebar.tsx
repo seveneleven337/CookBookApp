@@ -14,8 +14,8 @@ export default function LeftSidebar() {
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2 ml-2 mt-2">My profile</h2>
         {user ? (
-          <p className="text-gray-700 mb-6 ml-2">
-            Logged in as{' '}
+          <p className="text-gray-700 mb-6 ml-2 mt-2">
+            <span className="block">Logged in as</span>
             <span className="font-semibold">
               {user.name} {user.lastName}
             </span>
