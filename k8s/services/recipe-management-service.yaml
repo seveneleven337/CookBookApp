@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recipe-management
+  namespace: cookbookapp
+spec:
+  selector:
+    app: recipe-management
+  ports:
+    - port: 5001
+      targetPort: 5001
