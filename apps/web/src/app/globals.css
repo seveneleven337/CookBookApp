@@ -1,8 +1,27 @@
 @import 'tailwindcss';
 
 @theme {
+  /*main theme*/
   --color-primary: #006400;
   --color-secondary: #90ee90;
-  --color-primary: #60ad5e;
-  --color-primary: #f5f5dc;
+  --color-tertiary: #def9cc;
+  --color-neutral: #f7f7dd;
+
+  /*form*/
+  --color-form-text-title: #0b7314;
+  --color-form-text-subtitle: #90968a;
+  --color-form-btn-bg: #004e00;
+  --color-form-btn-bg-hover: #007500;
+
+  --color-form-submit-btn-bg: #99f89a;
+  --color-form-submit-btn-bg-hover: #79c47a;
+  --color-form-submit-btn-bg-active: #99f89a;
+
+  /*input*/
+  --color-input-text-legend: #456542;
+  --color-input-text-legend-hover: #88ad86;
+
+  --color-input-bg: #f7f7dd;
+  --color-input-text: #656656;
+  --color-input-text-active: #b0b296;
 }
