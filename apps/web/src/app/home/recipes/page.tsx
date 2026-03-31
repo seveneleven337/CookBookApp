@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAuthStore } from '@/store/authStore';
-import { getUserRecipes, Recipe } from '@/lib/recipe-api';
+import { useAuthStore } from '@/data/store/authStore';
+import { getUserRecipes, Recipe } from '@/data/lib/recipe-api';
 import RecipeCard from '@/components/RecipeCard';
 
 export default function RecipesPage() {

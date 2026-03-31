@@ -1,36 +1,15 @@
-export interface RegisterPayload {
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import {
+  LoginPayload,
+  LoginResponse,
+  RegisterPayload,
+  RegisterResponse,
+} from '@/types/auth-service-type';
+import { AUTH_API_URL } from './endpoints';
 
-export interface RegisterResponse {
-  user: {
-    id: number;
-    name: string;
-    lastName: string;
-    email: string;
-  };
-  token?: string;
-}
-
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  user: {
-    id: number;
-    name: string;
-    lastName: string;
-    email: string;
-  };
-}
-
-const AUTH_API_URL = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL ?? 'http://localhost:4000/api/auth';
+/*
+ * Auth service functions for user registration and login, interacting with the backend authentication API.
+ * Each function sends appropriate API requests and handles responses, including error handling for failed requests.
+ */
 
 async function checkResponse(res: Response) {
   if (!res.ok) {

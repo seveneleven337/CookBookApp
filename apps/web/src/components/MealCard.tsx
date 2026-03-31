@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Meal, saveRecipe } from '@/lib/recipe-api';
-import { useAuthStore } from '../store/authStore';
+import { Meal, saveRecipe } from '@/data/lib/recipe-api';
+import { useAuthStore } from '../data/store/authStore';
 
 export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
   const [meal, setMeal] = useState<Meal>(initialMeal);

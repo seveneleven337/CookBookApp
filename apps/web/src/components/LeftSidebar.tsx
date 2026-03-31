@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/data/store/authStore';
 
 export default function LeftSidebar() {
   const router = useRouter();

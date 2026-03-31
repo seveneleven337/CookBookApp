@@ -2,11 +2,9 @@
 
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/authStore';
 
 export default function LoginForm() {
   const router = useRouter();
-  const { login, isLoading, error } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
@@ -22,13 +20,6 @@ export default function LoginForm() {
     if (!email || !password) {
       setFormError('Please enter email and password');
       return;
-    }
-
-    try {
-      await login({ email, password });
-      router.push('/homepage');
-    } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Login failed');
     }
   };
 
@@ -65,7 +56,6 @@ export default function LoginForm() {
         </div>
 
         {formError && <p className="text-sm text-red-500 font-medium">{formError}</p>}
-        {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
 
         <p className="text-sm text-gray-400">
           Don&apos;t have an account?{' '}
@@ -81,9 +71,8 @@ export default function LoginForm() {
         <button
           type="submit"
           className="w-full bg-orange-500 text-white font-semibold py-3 rounded-2xl hover:bg-orange-600 transition cursor-pointer"
-          disabled={isLoading}
         >
-          {isLoading ? 'Logging in…' : 'Log in'}
+          {'Log in'}
         </button>
       </form>
     </div>

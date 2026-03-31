@@ -2,11 +2,9 @@
 
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/authStore';
 
 export default function RegisterForm() {
   const router = useRouter();
-  const { register, isLoading, error } = useAuthStore();
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,12 +24,12 @@ export default function RegisterForm() {
       return;
     }
 
-    try {
+    /* try {
       await register({ name, lastName, email, password });
       router.push('/login');
     } catch (err) {
       setFormError(err instanceof Error ? err.message : 'Failed to register.');
-    }
+    } */
   }
 
   return (
@@ -94,8 +92,8 @@ export default function RegisterForm() {
         </div>
 
         {formError && <p className="text-sm text-red-500 font-medium">{formError}</p>}
-        {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
-
+        {/*         {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+         */}
         <p className="text-sm text-gray-400">
           Already have an account?{' '}
           <button
@@ -110,9 +108,10 @@ export default function RegisterForm() {
         <button
           type="submit"
           className="w-full bg-orange-500 text-white font-semibold py-3 rounded-2xl hover:bg-orange-600 transition cursor-pointer"
-          disabled={isLoading}
+          /*           disabled={isLoading}
+           */
         >
-          {isLoading ? 'Registering…' : 'Register'}
+          {/* isLoading ? 'Registering…' : */ 'Register'}
         </button>
       </form>
     </div>
