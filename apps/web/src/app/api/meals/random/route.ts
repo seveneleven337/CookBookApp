@@ -1,4 +1,4 @@
-import { getRandomMeal } from '@/lib/recipe-api';
+import { getRandomMeal } from '@/data/lib/recipe-api';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
