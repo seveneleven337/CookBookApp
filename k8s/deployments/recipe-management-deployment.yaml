@@ -1,0 +1,45 @@
+# Build and push image first:
+#   docker build -f apps/docker/Dockerfile.recipe-management-service -t walaska/cookbookapp:recipe-management .
+#   docker push walaska/cookbookapp:recipe-management
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-management
+  namespace: cookbookapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-management
+  template:
+    metadata:
+      labels:
+        app: recipe-management
+    spec:
+      containers:
+        - name: recipe-management
+          image: walaska/cookbookapp:recipe-management
+          ports:
+            - containerPort: 5001
+          env:
+            - name: RECIPE_MANAGEMENT_SERVICE_PORT
+              value: "5001"
+            - name: RECIPE_DB_HOST
+              value: user-db
+            - name: RECIPE_DB_PORT
+              value: "5432"
+            - name: RECIPE_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: recipe-secrets
+                  key: RECIPE_DB_NAME
+            - name: RECIPE_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: recipe-secrets
+                  key: RECIPE_DB_USER
+            - name: RECIPE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: recipe-secrets
+                  key: RECIPE_DB_PASSWORD
