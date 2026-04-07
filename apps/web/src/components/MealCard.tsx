@@ -1,46 +1,15 @@
 'use client';
 
+import { Meal } from '@/types/recipe-service-type';
 import Image from 'next/image';
-import { useState } from 'react';
-import { Meal, saveRecipe } from '@/data/lib/recipe-api';
-import { useAuthStore } from '../data/store/authStore';
 
-export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
-  const [meal, setMeal] = useState<Meal>(initialMeal);
-  const [loading, setLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const { user } = useAuthStore();
-
-  const showToast = (message: string) => {
-    setToastMessage(message);
-    window.setTimeout(() => setToastMessage(null), 1800);
-  };
-
-  async function fetchNewMeal() {
-    setLoading(true);
-    const res = await fetch('/api/meals/random');
-    const newMeal = await res.json();
-    setMeal(newMeal);
-    setLoading(false);
+export default function MealCard({ meal }: { meal: Meal }) {
+  function handleSave(): void {
+    throw new Error('Function not implemented.');
   }
 
-  const handleSave = async () => {
-    if (!user) {
-      showToast('Please login to save recipes!');
-      return;
-    }
-
-    try {
-      await saveRecipe(user.id, meal.strMeal, meal.strInstructions);
-      showToast('Recipe saved!');
-      await fetchNewMeal();
-    } catch {
-      showToast('Failed to save recipe!');
-    }
-  };
-
   return (
-    <div className="relative w-96 rounded-3xl overflow-hidden shadow-2xl bg-white">
+    <div className="relative flex-1 max-w-80 aspect-auto rounded-3xl overflow-hidden  bg-white">
       <Image
         src={meal.strMealThumb}
         alt={meal.strMeal}
@@ -50,7 +19,7 @@ export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
         loading="eager"
         priority
       />
-      <div className="absolute top-0 left-0 w-full h-72 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-72 bg-linear-to-t from-black/60 to-transparent" />
 
       <div className="absolute top-4 left-4 flex gap-2">
         {meal.strTags &&
@@ -64,54 +33,33 @@ export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
           ))}
       </div>
 
-      <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">{meal.strMeal}</h2>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span className="font-semibold text-gray-700">Category:</span>
-            {meal.strCategory}
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span className="font-semibold text-gray-700">Origin:</span>
+      <div className="m-4">
+        <div className="flex items-center gap-2 mb-4 h-20">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-4 overflow-hidden line-clamp-3">
+            {meal.strMeal}
+          </h2>
+          <span className="bg-card-tag-bg backdrop-blur text-gray-700 text-xs font-semibold px-3 py-1 rounded flex-1">
             {meal.strArea}
-          </div>
+          </span>
+        </div>
+        <div className="w-full text-sm text-gray-500  overflow-hidden line-clamp-4">
+          {meal.strInstructions}
         </div>
       </div>
 
       <div className="flex justify-center gap-6 px-6 pb-6">
-        <button
+        {/* <button
           onClick={fetchNewMeal}
           disabled={loading}
           className="w-14 h-14 rounded-full bg-red-100 text-red-500 text-2xl flex items-center justify-center shadow hover:bg-red-200 transition disabled:opacity-50 cursor-pointer"
         >
-          {loading ? '...' : '✕'}
-        </button>
+          {loading ? '...' : '✕'} 
+        </button>*/}
         <button
           onClick={handleSave}
           className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition cursor-pointer"
-        >
-          ♥
-        </button>
+        ></button>
       </div>
-
-      {toastMessage && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="
-      fixed 
-      top-1/2 left-1/2 
-      -translate-x-1/2 -translate-y-1/2 
-      z-50 
-      rounded-lg 
-      bg-black/80 
-      px-4 py-2 
-      text-sm text-white
-    "
-        >
-          {toastMessage}
-        </div>
-      )}
     </div>
   );
 }

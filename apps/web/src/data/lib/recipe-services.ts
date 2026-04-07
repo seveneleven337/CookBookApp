@@ -30,6 +30,5 @@ export async function deleteRecipe(recipeId: string) {
     method: 'DELETE',
   });
   if (!res.ok) throw new Error('Failed to delete recipe');
-  // For 204 No Content, no body to parse
   return res.status === 204 ? null : res.json();
 }
