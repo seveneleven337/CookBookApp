@@ -1,9 +1,4 @@
-import {
-  LoginPayload,
-  LoginResponse,
-  RegisterPayload,
-  RegisterResponse,
-} from '@/types/auth-service-type';
+import { LoginPayload, RegisterPayload } from '@/types/auth-service-type';
 import { AUTH_API_URL } from './endpoints';
 import { User } from '@/types/user-type';
 
