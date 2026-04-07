@@ -31,6 +31,8 @@ export function useAuth() {
     login: loginMutation.mutate,
     register: registerMutation.mutate,
     logout,
+    isLoggedIn: loginMutation.isSuccess,
+    isRegistered: registerMutation.isSuccess,
     isLoggingIn: loginMutation.isPending,
     isRegistering: registerMutation.isPending,
     isError: loginMutation.isError || registerMutation.isError,
