@@ -1,3 +1,12 @@
+import NavBar from '@/components/NavBar';
+
 export default function LandingPage() {
-  return <div>This will be the landing page content</div>;
+  return (
+    <div>
+      <NavBar />
+      {/* landing content */}
+      {/* categories */}
+      {/* 6 random recipes */}
+    </div>
+  );
 }
