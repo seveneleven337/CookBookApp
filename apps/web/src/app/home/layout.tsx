@@ -1,13 +1,22 @@
-export default function HomepageLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <main className="min-h-screen bg-orange-50 flex">
-      {/* Permanent sidebar */}
-      {/*       <LeftSidebar />
-       */}
-      {/* This changes based on which child route you visit */}
-      {/*       <section className="flex-1 p-10">{children}</section>
-       */}{' '}
-      <section className="flex-1 p-10">{children}</section>
-    </main>
-  );
+'use client';
+import React, { useEffect } from 'react';
+import { useUserStore } from '@/data/store/authStore';
+import { useRouter } from 'next/navigation';
+
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
+  const route = useRouter();
+  const user = useUserStore((state) => state.user);
+
+  useEffect(() => {
+    if (!user && route) {
+      console.warn('No user found, redirecting to login page');
+      route.push('/login');
+    }
+  }, [user, route]);
+
+  if (!user) {
+    return null;
+  }
+
+  return children;
 }
