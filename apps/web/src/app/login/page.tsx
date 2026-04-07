@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/data/react-query/useAuth';
 import { useUserStore } from '@/data/store/authStore';
 
+const fieldClass =
+  'border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition';
+const legendClass = 'text-xs font-semibold text-input-text-legend px-1';
+
 /*
  * TODO: - Add toast notifications for errors ( formError and errors) and success
  */
@@ -14,6 +18,7 @@ export default function LoginPage() {
   const [formError, setFormError] = useState<string | null>(null);
   const { login, error } = useAuth();
   const user = useUserStore((state) => state.user);
+
   function goToRegister() {
     router.push('/register');
   }
@@ -52,8 +57,8 @@ export default function LoginPage() {
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           <div>
-            <fieldset className="border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition">
-              <legend className="text-xs font-semibold text-input-text-legend px-1">Email</legend>
+            <fieldset className={fieldClass}>
+              <legend className={legendClass}>Email</legend>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -65,10 +70,8 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <fieldset className="border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition">
-              <legend className="text-xs font-semibold text-input-text-legend px-1">
-                Password
-              </legend>
+            <fieldset className={fieldClass}>
+              <legend className={legendClass}>Password</legend>
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
