@@ -9,6 +9,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     if (!user && route) {
+      // Add Toast Notification Here instead of console.warn
       console.warn('No user found, redirecting to login page');
       route.push('/login');
     }
