@@ -48,61 +48,59 @@ export default function LoginPage() {
   }, [user, router]);
 
   return (
-    <main className="min-h-screen bg-neutral bg-linear-to-tl from-neutral to-tertiary flex items-center justify-center">
-      <div className="w-full max-w-sm bg-white px-10 py-12 rounded-2xl shadow-lg">
-        <h1 className="text-4xl font-bold text-form-text-title mb-1">Welcome Back</h1>
-        <p className="text-form-text-subtitle mb-6">
-          Please enter your details to access your kitchen
+    <div className="w-full max-w-sm bg-white px-10 py-12 rounded-2xl shadow-lg">
+      <h1 className="text-4xl font-bold text-form-text-title mb-1">Welcome Back</h1>
+      <p className="text-form-text-subtitle mb-6">
+        Please enter your details to access your kitchen
+      </p>
+
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+        <div>
+          <fieldset className={fieldClass}>
+            <legend className={legendClass}>Email</legend>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="you@example.com"
+              className="w-full outline-none text-input-text  bg-transparent text-md"
+            />
+          </fieldset>
+        </div>
+
+        <div>
+          <fieldset className={fieldClass}>
+            <legend className={legendClass}>Password</legend>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="*******"
+              className="w-full outline-none text-input-text bg-transparent text-sm"
+            />
+          </fieldset>
+        </div>
+
+        {formError && <p className="text-sm text-red-500 font-medium">{formError}</p>}
+
+        <p className="text-sm text-gray-400">
+          New to the table?{' '}
+          <button
+            type="button"
+            className="text-input-text-legend font-semibold hover:underline cursor-pointer hover:text-input-text-legend-hover transition pl-0.5"
+            onClick={goToRegister}
+          >
+            Register
+          </button>
         </p>
 
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
-          <div>
-            <fieldset className={fieldClass}>
-              <legend className={legendClass}>Email</legend>
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="you@example.com"
-                className="w-full outline-none text-input-text  bg-transparent text-md"
-              />
-            </fieldset>
-          </div>
-
-          <div>
-            <fieldset className={fieldClass}>
-              <legend className={legendClass}>Password</legend>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="*******"
-                className="w-full outline-none text-input-text bg-transparent text-sm"
-              />
-            </fieldset>
-          </div>
-
-          {formError && <p className="text-sm text-red-500 font-medium">{formError}</p>}
-
-          <p className="text-sm text-gray-400">
-            New to the table?{' '}
-            <button
-              type="button"
-              className="text-input-text-legend font-semibold hover:underline cursor-pointer hover:text-input-text-legend-hover transition pl-0.5"
-              onClick={goToRegister}
-            >
-              Register
-            </button>
-          </p>
-
-          <button
-            type="submit"
-            className="w-full bg-form-btn-bg text-white font-bold text-base py-3 rounded-full hover:bg-form-btn-bg-hover transition cursor-pointer"
-          >
-            {'Sign in'}
-          </button>
-        </form>
-      </div>
-    </main>
+        <button
+          type="submit"
+          className="w-full bg-form-btn-bg text-white font-bold text-base py-3 rounded-full hover:bg-form-btn-bg-hover transition cursor-pointer"
+        >
+          {'Sign in'}
+        </button>
+      </form>
+    </div>
   );
 }

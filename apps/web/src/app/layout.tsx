@@ -15,7 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {' '}
+          <main className="min-h-screen bg-neutral bg-linear-to-tl from-neutral to-tertiary flex items-center justify-center">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );
