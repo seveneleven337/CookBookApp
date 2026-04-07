@@ -24,4 +24,9 @@
   --color-input-bg: #f7f7dd;
   --color-input-text: #656656;
   --color-input-text-active: #b0b296;
+
+  /*nav*/
+  --color-brand: #10400c;
+  --color-nav-item: #456542;
+  --color-border-bg: #eaead0;
 }
