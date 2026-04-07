@@ -5,7 +5,7 @@
   --color-primary: #006400;
   --color-secondary: #90ee90;
   --color-tertiary: #def9cc;
-  --color-neutral: #f7f7dd;
+  --color-neutral: #fbfbe1;
 
   /*form*/
   --color-form-text-title: #0b7314;
@@ -28,5 +28,12 @@
   /*nav*/
   --color-brand: #10400c;
   --color-nav-item: #456542;
-  --color-border-bg: #eaead0;
+  --color-border-bg: #f7f7dd;
+  --color-nav-bg: #f5f5db;
+
+  /*footer*/
+  --color-footer-bg: #f5f5db;
+
+  /*meal card*/
+  --color-card-tag-bg: #91e790;
 }
