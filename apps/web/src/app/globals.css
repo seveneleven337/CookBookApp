@@ -4,8 +4,13 @@
   /*main theme*/
   --color-primary: #006400;
   --color-secondary: #90ee90;
-  --color-tertiary: #def9cc;
-  --color-neutral: #fbfbe1;
+  --color-tertiary: #fbfbe1;
+  --color-neutral: #fbfbe2;
+
+  /*landing page*/
+  --color-text-title: #024600;
+  --color-text-title-variant: #0d6818;
+  --color-text-subtitle: #7b7d6b;
 
   /*form*/
   --color-form-text-title: #0b7314;
