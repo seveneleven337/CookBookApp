@@ -18,7 +18,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="w-screen  border-b border-border-bg z-50 px-8 py-2 flex items-center justify-between backdrop-blur-sm bg-nav-bg bg-linear-to-tl from-nav-bg to-tertiary">
+    <div className="w-screen  border-b-3 border-border-bg z-50 px-8 py-2 flex items-center justify-between ">
       <div className={brandClass}>COOKBOOK</div>
       <div className="flex items-center justify-baseline gap-4">
         <button className={navItemsClass}>Breakfast</button>
