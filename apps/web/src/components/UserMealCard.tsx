@@ -3,6 +3,9 @@
 import { Meal } from '@/types/recipe-service-type';
 import Image from 'next/image';
 
+/*
+ * TODO: Implement save, view details functions
+ */
 export default function MealCard({ meal }: { meal: Meal }) {
   function handleSave(): void {
     throw new Error('Function not implemented.');
