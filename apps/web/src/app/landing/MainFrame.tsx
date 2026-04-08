@@ -10,10 +10,10 @@ export default function MainFrame() {
         <h1 className="text-6xl w-full font-bold italic text-text-title-variant">
           Made with love.
         </h1>
-        <span className="flex w-full font-normal text-2xl text-text-subtitle items-center justify-center pt-8">
+        <h2 className="flex w-full font-normal text-2xl text-text-subtitle items-center justify-center pt-8">
           Explore our collection of seasonal, organic recipes designed to bring the joy of gourmet
           cooking into your home kitchen
-        </span>
+        </h2>
         <fieldset className="flex flex-row border border-gray-200 rounded-2xl px-4 py-2 bg-input-bg focus-within:border-primary transition mt-8 w-full">
           <input
             value={''}
@@ -30,7 +30,7 @@ export default function MainFrame() {
 
       <div className="flex w-130 h-full items-center justify-center flex-col p-4">
         <Image
-          src="/landingpage1.png"
+          src="/landingpage1.webp"
           alt="Delicious food"
           width={400}
           height={400}
