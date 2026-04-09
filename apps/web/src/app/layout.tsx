@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Providers } from '@/providers/tanstack-provider';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'CookBookApp',
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Providers>
           {' '}
+          <Toaster richColors closeButton />
           <main className="min-h-screen w-screen bg-neutral bg-linear-to-tl from-neutral to-tertiary flex items-top justify-center">
             {children}
           </main>
