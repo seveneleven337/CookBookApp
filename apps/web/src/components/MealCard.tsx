@@ -2,14 +2,15 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Meal, saveRecipe } from '@/data/lib/recipe-api';
-import { useAuthStore } from '../data/store/authStore';
+import { Meal } from '@/types/recipe-service-type';
+import { saveRecipe } from '@/data/lib/recipe-services';
+import { useUserStore } from '../data/store/authStore';
 
 export default function MealCard({ initialMeal }: { initialMeal: Meal }) {
   const [meal, setMeal] = useState<Meal>(initialMeal);
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const { user } = useAuthStore();
+  const { user } = useUserStore();
 
   const showToast = (message: string) => {
     setToastMessage(message);

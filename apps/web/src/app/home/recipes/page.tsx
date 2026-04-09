@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAuthStore } from '@/data/store/authStore';
-import { getUserRecipes, Recipe } from '@/data/lib/recipe-api';
+import { useUserStore } from '@/data/store/authStore';
+import { getUserRecipes } from '@/data/lib/recipe-services';
+import { Recipe } from '@/types/recipe-service-type';
 import RecipeCard from '@/components/RecipeCard';
 
 export default function RecipesPage() {
-  const { user } = useAuthStore();
+  const { user } = useUserStore();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
