@@ -15,6 +15,10 @@ on:
           - web
           - monitoring
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   sync-and-apply:
     name: Sync & Apply (${{ github.event.inputs.target }})
