@@ -120,7 +120,7 @@ export default function RegisterPage() {
               className="text-input-text-legend font-semibold hover:underline cursor-pointer hover:text-input-text-legend-hover transition pl-0.5"
               onClick={goToLogin}
             >
-              Sign up
+              Sign in
             </button>
           </p>
 
@@ -128,7 +128,7 @@ export default function RegisterPage() {
             type="submit"
             className="w-full bg-form-btn-bg text-white font-bold text-base py-3 rounded-full hover:bg-form-btn-bg-hover transition cursor-pointer"
           >
-            {'Sign in'}
+            {'Register'}
           </button>
         </form>
       </div>
