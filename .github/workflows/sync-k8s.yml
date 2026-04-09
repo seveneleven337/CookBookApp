@@ -1,0 +1,66 @@
+name: Sync k8s Manifests
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which manifests to apply"
+        required: true
+        type: choice
+        default: all
+        options:
+          - all
+          - auth
+          - recipe-management
+          - web
+          - monitoring
+
+jobs:
+  sync-and-apply:
+    name: Sync & Apply (${{ github.event.inputs.target }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Resolve source path
+        id: paths
+        run: |
+          if [ "${{ github.event.inputs.target }}" = "all" ]; then
+            echo "local=k8s/" >> $GITHUB_OUTPUT
+            echo "remote=/tmp/k8s-sync/" >> $GITHUB_OUTPUT
+            echo "apply_flag=--recursive" >> $GITHUB_OUTPUT
+          else
+            echo "local=k8s/${{ github.event.inputs.target }}/" >> $GITHUB_OUTPUT
+            echo "remote=/tmp/k8s-sync/${{ github.event.inputs.target }}/" >> $GITHUB_OUTPUT
+            echo "apply_flag=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Copy manifests to VM
+        run: |
+          gcloud compute scp \
+            --recurse \
+            --tunnel-through-iap \
+            --zone=${{ secrets.GCP_ZONE }} \
+            --project=${{ secrets.GCP_PROJECT }} \
+            ${{ steps.paths.outputs.local }} \
+            ${{ secrets.GCP_K3S_VM }}:${{ steps.paths.outputs.remote }}
+
+      - name: Apply manifests
+        run: |
+          gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
+            --tunnel-through-iap \
+            --zone=${{ secrets.GCP_ZONE }} \
+            --project=${{ secrets.GCP_PROJECT }} \
+            --quiet \
+            --command="kubectl apply -f ${{ steps.paths.outputs.remote }} ${{ steps.paths.outputs.apply_flag }}"
