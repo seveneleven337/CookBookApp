@@ -1,7 +1,9 @@
 'use client';
 
-import { Recipe, deleteRecipe } from '@/data/lib/recipe-api';
+import { deleteRecipe } from '@/data/lib/recipe-services';
+import { Recipe } from '@/types/recipe-service-type';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function RecipeCard({
   recipe,
@@ -32,13 +34,16 @@ export default function RecipeCard({
   };
 
   return (
-    <div className="relative rounded-lg shadow bg-white p-4 flex items-center justify-between gap-4">
-      <h2 className="text-lg font-semibold text-gray-900 flex-1 truncate">{recipe.title}</h2>
-
+    <div className="rounded-lg shadow bg-white p-4 flex items-center gap-3 hover:shadow-md transition">
+      <Link href={`./recipes/${recipe.id}`} className="flex-1 min-w-0">
+        <h2 className="text-lg font-semibold text-gray-900 truncate cursor-pointer">
+          {recipe.title}
+        </h2>
+      </Link>
       <button
         onClick={handleDelete}
         disabled={isDeleting}
-        className="w-10 h-10 rounded-full bg-red-100 text-red-500 text-lg flex-shrink-0 flex items-center justify-center shadow hover:bg-red-200 transition disabled:opacity-50 cursor-pointer"
+        className="w-10 h-10 rounded-full bg-red-100 text-red-500 text-lg flex items-center justify-center shrink-0 hover:bg-red-200 transition disabled:opacity-50 cursor-pointer"
       >
         {isDeleting ? '...' : '✕'}
       </button>

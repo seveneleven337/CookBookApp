@@ -25,6 +25,33 @@ export async function getUserRecipes(userId: number): Promise<Recipe[]> {
   return res.json();
 }
 
+export async function getRecipeById(id: string): Promise<Recipe | null> {
+  if (!id) return null;
+
+  console.log(`[getRecipeById] Fetching recipe with id: ${id}`);
+  console.log(`[getRecipeById] URL: ${RECIPE_API_URL}/${id}`);
+
+  try {
+    const res = await fetch(`${RECIPE_API_URL}/${id}`, {
+      cache: 'no-store',
+    });
+
+    console.log(`[getRecipeById] Response status: ${res.status}`);
+
+    if (!res.ok) {
+      console.error('Backend returned:', res.status);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(`[getRecipeById] Received data:`, data);
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return null;
+  }
+}
+
 export async function deleteRecipe(recipeId: string) {
   const res = await fetch(`${RECIPE_API_URL}/${recipeId}`, {
     method: 'DELETE',
