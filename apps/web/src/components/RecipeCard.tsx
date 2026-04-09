@@ -1,6 +1,7 @@
 'use client';
 
-import { Recipe, deleteRecipe } from '@/data/lib/recipe-api';
+import { deleteRecipe } from '@/data/lib/recipe-services';
+import { Recipe } from '@/types/recipe-service-type';
 import { useState } from 'react';
 
 export default function RecipeCard({
