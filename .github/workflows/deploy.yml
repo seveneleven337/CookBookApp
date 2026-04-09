@@ -1,0 +1,64 @@
+name: Deploy to k3s
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: "Service to deploy"
+        required: true
+        type: choice
+        options:
+          - auth
+          - recipe-management
+          - web
+
+env:
+  REGISTRY: docker.io
+  IMAGE_REPO: walaska/cookbookapp
+
+jobs:
+  build-and-push:
+    name: Build & Push (${{ github.event.inputs.service }})
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Resolve Dockerfile path
+        id: meta
+        run: |
+          SERVICE="${{ github.event.inputs.service }}"
+          case "$SERVICE" in
+            auth)
+              echo "dockerfile=apps/docker/Dockerfile.auth" >> $GITHUB_OUTPUT
+              ;;
+            recipe-management)
+              echo "dockerfile=apps/docker/Dockerfile.recipe-management-service" >> $GITHUB_OUTPUT
+              ;;
+            web)
+              echo "dockerfile=apps/docker/Dockerfile.web" >> $GITHUB_OUTPUT
+              ;;
+          esac
+          echo "tag=${{ env.IMAGE_REPO }}:$SERVICE" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ${{ steps.meta.outputs.dockerfile }}
+          push: true
+          tags: ${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
