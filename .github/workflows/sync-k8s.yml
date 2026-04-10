@@ -41,11 +41,11 @@ jobs:
         id: paths
         run: |
           if [ "${{ github.event.inputs.target }}" = "all" ]; then
-            echo "local=k8s/" >> $GITHUB_OUTPUT
+            echo "local=k8s" >> $GITHUB_OUTPUT
             echo "remote=/tmp/k8s-sync/" >> $GITHUB_OUTPUT
             echo "apply_flag=--recursive" >> $GITHUB_OUTPUT
           else
-            echo "local=k8s/${{ github.event.inputs.target }}/" >> $GITHUB_OUTPUT
+            echo "local=k8s${{ github.event.inputs.target }}/" >> $GITHUB_OUTPUT
             echo "remote=/tmp/k8s-sync/${{ github.event.inputs.target }}/" >> $GITHUB_OUTPUT
             echo "apply_flag=" >> $GITHUB_OUTPUT
           fi
@@ -56,25 +56,23 @@ jobs:
           echo "remote='${{ steps.paths.outputs.remote }}'"
           echo "apply_flag='${{ steps.paths.outputs.apply_flag }}'"
 
-      - name: Check remote dir
+      - name: Check permissions
         run: |
           gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
             --tunnel-through-iap \
             --zone=${{ secrets.GCP_ZONE }} \
             --project=${{ secrets.GCP_PROJECT }} \
-            --command="ls -la /tmp/ | grep k8s && whoami"
+            --command="id && ls -la /tmp/ | grep k8s"
 
       - name: Copy manifests to VM
         run: |
-          set -x
           gcloud compute scp \
             --recurse \
             --tunnel-through-iap \
             --zone=${{ secrets.GCP_ZONE }} \
             --project=${{ secrets.GCP_PROJECT }} \
-            --verbosity=debug \
-            ${{ steps.paths.outputs.local }} \
-            "${{ secrets.GCP_K3S_VM }}:${{ steps.paths.outputs.remote }}"
+            k8s \
+            ${{ secrets.GCP_K3S_VM }}:/tmp/k8s-sync/
 
       #- name: Apply manifests
       #  run: |
