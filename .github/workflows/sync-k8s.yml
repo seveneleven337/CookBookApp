@@ -50,6 +50,19 @@ jobs:
             echo "apply_flag=" >> $GITHUB_OUTPUT
           fi
 
+      - name: Populate secrets
+        env:
+          AUTH_JWT_SECRET: ${{ secrets.AUTH_JWT_SECRET }}
+          AUTH_DB_PASSWORD: ${{ secrets.AUTH_DB_PASSWORD }}
+          AUTH_DB_ROOT_PASSWORD: ${{ secrets.AUTH_DB_ROOT_PASSWORD }}
+          RECIPE_DB_PASSWORD: ${{ secrets.RECIPE_DB_PASSWORD }}
+          GRAFANA_ADMIN_PASSWORD: ${{ secrets.GRAFANA_ADMIN_PASSWORD }}
+          GRAFANA_ROOT_URL: ${{ secrets.GRAFANA_ROOT_URL }}
+        run: |
+          find k8s -name "secret.yaml" -o -name "*-secret.yaml" | while read f; do
+            envsubst < "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+          done
+
       - name: Copy manifests to VM
         run: |
           gcloud compute scp \
@@ -60,11 +73,11 @@ jobs:
             k8s \
             ${{ secrets.GCP_K3S_VM }}:/tmp/k8s-sync/
 
-      #- name: Apply manifests
-      #  run: |
-      #    gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
-      #      --tunnel-through-iap \
-      #      --zone=${{ secrets.GCP_ZONE }} \
-      #      --project=${{ secrets.GCP_PROJECT }} \
-      #      --quiet \
-      #      --command="kubectl apply -f ${{ steps.paths.outputs.remote }} ${{ steps.paths.outputs.apply_flag }}"
+      - name: Apply manifests
+        run: |
+          gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
+            --tunnel-through-iap \
+            --zone=${{ secrets.GCP_ZONE }} \
+            --project=${{ secrets.GCP_PROJECT }} \
+            --quiet \
+            --command="kubectl apply -f ${{ steps.paths.outputs.remote }} ${{ steps.paths.outputs.apply_flag }}"
