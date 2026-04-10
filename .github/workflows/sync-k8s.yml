@@ -56,6 +56,13 @@ jobs:
             --zone=${{ secrets.GCP_ZONE }} \
             --command="mkdir -p /tmp/k8s-sync"
 
+      - name: Copy files
+        run: |
+          gcloud compute scp --recurse \
+            ./k8s \
+            ${{ secrets.GCP_K3S_VM }}:/tmp/k8s-sync/ \
+            --zone=${{ secrets.GCP_ZONE }}
+
       - name: Copy manifests to VM
         run: |
           gcloud compute scp \
