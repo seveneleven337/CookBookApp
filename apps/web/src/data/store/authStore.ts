@@ -10,19 +10,28 @@ import { persist } from 'zustand/middleware';
  */
 interface UserState {
   user?: User;
+  hasHydrated: boolean;
   setUser: (user: User) => void;
   clearUser: () => void;
+  setHasHydrated: (state: boolean) => void;
 }
 
 export const useUserStore = create<UserState>()(
   persist(
     (set) => ({
       user: undefined,
+      hasHydrated: false,
+
       setUser: (user) => set({ user }),
       clearUser: () => set({ user: undefined }),
+
+      setHasHydrated: (state) => set({ hasHydrated: state }),
     }),
     {
       name: 'user-storage',
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     },
   ),
 );
