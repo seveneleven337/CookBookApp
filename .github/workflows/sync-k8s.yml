@@ -64,7 +64,7 @@ jobs:
             --zone=${{ secrets.GCP_ZONE }} \
             --project=${{ secrets.GCP_PROJECT }} \
             ${{ steps.paths.outputs.local }} \
-            ${{ secrets.GCP_K3S_VM }}:${{ steps.paths.outputs.remote }}
+            ${{ secrets.GCP_K3S_VM }}:/tmp/k8s-sync/
 
       - name: Apply manifests
         run: |
