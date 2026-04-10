@@ -2,13 +2,12 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/data/react-query/useAuth';
+import { toast } from 'sonner';
 
 const fieldClass =
   'border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition';
 const legendClass = 'text-xs font-semibold text-input-text-legend px-1';
-/*
- * TODO: - Add toast notifications for errors ( formError and errors) and success
- */
+
 export default function RegisterPage() {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -28,6 +27,7 @@ export default function RegisterPage() {
 
     if (!name || !lastName || !email || !password) {
       setFormError('Please fill in all fields.');
+      toast.error('Please fill in all fields.');
       return;
     }
 
@@ -36,13 +36,13 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (error) {
-      //Implement toast notification here
+      toast.error('An error occurred during registration. Please try again.');
     }
   }, [error]);
 
   useEffect(() => {
     if (isRegistered && router) {
-      //Implement toast notification here for successful registration
+      toast.success('Account created successfully! Please log in.');
       router.push('/login');
     }
   }, [isRegistered, router]);
@@ -114,7 +114,7 @@ export default function RegisterPage() {
           {formError && <p className="text-sm text-red-500 font-medium">{formError}</p>}
 
           <p className="text-sm text-gray-400">
-            Already a memeber?{' '}
+            Already a member?{' '}
             <button
               type="button"
               className="text-input-text-legend font-semibold hover:underline cursor-pointer hover:text-input-text-legend-hover transition pl-0.5"

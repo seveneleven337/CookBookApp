@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
         <Providers>
           {' '}
-          <Toaster richColors closeButton />
+          <Toaster richColors closeButton position="top-center" />
           <main className="min-h-screen w-screen bg-neutral bg-linear-to-tl from-neutral to-tertiary flex items-top justify-center">
             {children}
           </main>
