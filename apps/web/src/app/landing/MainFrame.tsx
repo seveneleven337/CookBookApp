@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function MainFrame() {
   const router = useRouter();
+  const [search, setSearch] = useState('');
   const SearchHandler = () => {
     router.push('/redirect');
   };
@@ -22,9 +23,8 @@ export default function MainFrame() {
         </h2>
         <fieldset className="flex flex-row border border-gray-200 rounded-2xl px-4 py-2 bg-input-bg focus-within:border-primary transition mt-8 w-full">
           <input
-            value={''}
-            onChange={() => {}}
-            type="email"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by recipe or ingredient"
             className="w-full outline-none text-input-text bg-transparent text-md"
           />
