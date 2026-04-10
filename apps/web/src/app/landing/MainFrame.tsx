@@ -1,8 +1,14 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function MainFrame() {
+  const router = useRouter();
+  const SearchHandler = () => {
+    router.push('/redirect');
+  };
+
   return (
     <div className="w-full h-200 flex flex-row items-center justify-center pt-30 gap-10  bg-landing-bg bg-linear-to-tl from-landing-bg to-tertiary">
       <div className="flex w-150 h-full items-center justify-center flex-col p-4">
@@ -22,7 +28,10 @@ export default function MainFrame() {
             placeholder="Search by recipe or ingredient"
             className="w-full outline-none text-input-text bg-transparent text-md"
           />
-          <button className="rounded-2xl bg-form-btn-bg px-6 py-2 text-white font-bold text-base hover:bg-form-btn-bg-hover">
+          <button
+            className="rounded-2xl bg-form-btn-bg px-6 py-2 text-white font-bold text-base hover:bg-form-btn-bg-hover"
+            onClick={SearchHandler}
+          >
             Search
           </button>
         </fieldset>
