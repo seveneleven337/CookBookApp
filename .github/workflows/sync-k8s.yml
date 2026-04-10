@@ -51,10 +51,10 @@ jobs:
           fi
 
       - name: Debug paths
-              run: |
-                echo "local='${{ steps.paths.outputs.local }}'"
-                echo "remote='${{ steps.paths.outputs.remote }}'"
-                echo "apply_flag='${{ steps.paths.outputs.apply_flag }}'"
+        run: |
+          echo "local='${{ steps.paths.outputs.local }}'"
+          echo "remote='${{ steps.paths.outputs.remote }}'"
+          echo "apply_flag='${{ steps.paths.outputs.apply_flag }}'"
 
       - name: Copy manifests to VM
         run: |
