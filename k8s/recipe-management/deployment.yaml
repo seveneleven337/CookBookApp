@@ -16,6 +16,8 @@ spec:
       labels:
         app: recipe-management
     spec:
+      imagePullSecrets:
+        - name: dockerhub-creds
       containers:
         - name: recipe-management
           image: walaska/cookbookapp:recipe-management
