@@ -2,10 +2,15 @@
 
 import { Meal } from '@/types/recipe-service-type';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function MealCard({ meal }: { meal: Meal }) {
-  function handleSave(): void {
-    throw new Error('Function not implemented.');
+  const router = useRouter();
+
+  function handleSave(mealId: string): void {
+    if (mealId) {
+      router.push(`/recipe/${mealId}`);
+    }
   }
 
   return (
@@ -46,18 +51,13 @@ export default function MealCard({ meal }: { meal: Meal }) {
         </div>
       </div>
 
-      <div className="flex justify-center gap-6 px-6 pb-6">
-        {/* <button
-          onClick={fetchNewMeal}
-          disabled={loading}
-          className="w-14 h-14 rounded-full bg-red-100 text-red-500 text-2xl flex items-center justify-center shadow hover:bg-red-200 transition disabled:opacity-50 cursor-pointer"
-        >
-          {loading ? '...' : '✕'} 
-        </button>*/}
+      <div className="flex justify-end gap-6 px-6 pb-6 pt-1">
         <button
-          onClick={handleSave}
-          className="w-14 h-14 rounded-full bg-green-100 text-green-500 text-2xl flex items-center justify-center shadow hover:bg-green-200 transition cursor-pointer"
-        ></button>
+          className="rounded-2xl bg-form-btn-bg px-6 py-2 text-white font-bold text-base hover:bg-form-btn-bg-hover"
+          onClick={() => handleSave(meal.idMeal)}
+        >
+          See more
+        </button>
       </div>
     </div>
   );
