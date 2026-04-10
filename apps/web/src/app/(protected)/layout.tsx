@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { useUserStore } from '@/data/store/authStore';
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
