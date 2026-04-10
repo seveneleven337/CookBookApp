@@ -15,5 +15,6 @@ export function useRecipes() {
       const meals = await Promise.all(Array.from({ length: 6 }, () => getRandomMeal()));
       return meals;
     },
+    staleTime: Infinity,
   });
 }
