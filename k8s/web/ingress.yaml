@@ -3,10 +3,17 @@ kind: Ingress
 metadata:
   name: web
   namespace: cookbookapp
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - web.localhost
+      secretName: cloudflare-tls
   rules:
-    - host: web.localhost
+    - host: cookbook.fi
       http:
         paths:
           - path: /
