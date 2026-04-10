@@ -56,14 +56,25 @@ jobs:
           echo "remote='${{ steps.paths.outputs.remote }}'"
           echo "apply_flag='${{ steps.paths.outputs.apply_flag }}'"
 
-      - name: Copy manifests to VM
+      - name: Check remote dir
         run: |
-          tar czf - ${{ steps.paths.outputs.local }} | \
           gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
             --tunnel-through-iap \
             --zone=${{ secrets.GCP_ZONE }} \
             --project=${{ secrets.GCP_PROJECT }} \
-            --command="tar xzf - -C /tmp/k8s-sync/"
+            --command="ls -la /tmp/ | grep k8s && whoami"
+
+      - name: Copy manifests to VM
+        run: |
+          set -x
+          gcloud compute scp \
+            --recurse \
+            --tunnel-through-iap \
+            --zone=${{ secrets.GCP_ZONE }} \
+            --project=${{ secrets.GCP_PROJECT }} \
+            --verbosity=debug \
+            ${{ steps.paths.outputs.local }} \
+            "${{ secrets.GCP_K3S_VM }}:${{ steps.paths.outputs.remote }}"
 
       #- name: Apply manifests
       #  run: |
