@@ -1,6 +1,7 @@
 'use client';
 import { useUserStore } from '@/data/store/authStore';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 const brandClass = 'text-xl font-bold text-brand';
@@ -11,7 +12,14 @@ const navItemsClass =
  * TODO: - Implement button feature on NavBar elements ( Breakfast, Vegan, Dessert, Salad) to filter recipes by category
  * Improve logo * icon
  */
-export default function NavBar() {
+
+type NavBarProps = {
+  variant?: 'landing' | 'dashboard';
+};
+
+export default function NavBar({ variant = 'landing' }: NavBarProps) {
+  const router = useRouter();
+
   const { user, clearUser } = useUserStore();
 
   const handleLogout = async () => {
@@ -19,14 +27,38 @@ export default function NavBar() {
     toast.success('Logged out successfully!');
   };
 
+  function breakfastHandler() {
+    if (variant === 'landing') router.push('/redirect');
+  }
+
+  function VeganHandler() {
+    if (variant === 'landing') router.push('/redirect');
+  }
+
+  function DessertHandler() {
+    if (variant === 'landing') router.push('/redirect');
+  }
+
+  function SaladHandler() {
+    if (variant === 'landing') router.push('/redirect');
+  }
+
   return (
     <div className="w-screen  border-b-3 border-border-bg z-50 px-8 py-2 flex items-center justify-between ">
       <div className={brandClass}>COOKBOOK</div>
       <div className="flex items-center justify-baseline gap-4">
-        <button className={navItemsClass}>Breakfast</button>
-        <button className={navItemsClass}>Vegan</button>
-        <button className={navItemsClass}>Dessert</button>
-        <button className={navItemsClass}>Salad</button>
+        <button className={navItemsClass} onClick={breakfastHandler}>
+          Breakfast
+        </button>
+        <button className={navItemsClass} onClick={VeganHandler}>
+          Vegan
+        </button>
+        <button className={navItemsClass} onClick={DessertHandler}>
+          Dessert
+        </button>
+        <button className={navItemsClass} onClick={SaladHandler}>
+          Salad
+        </button>
       </div>
       <div className="flex items-center gap-4">
         {!user ? (
