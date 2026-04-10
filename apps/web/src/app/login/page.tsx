@@ -3,14 +3,12 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/data/react-query/useAuth';
 import { useUserStore } from '@/data/store/authStore';
+import { toast } from 'sonner';
 
 const fieldClass =
   'border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition';
 const legendClass = 'text-xs font-semibold text-input-text-legend px-1';
 
-/*
- * TODO: - Add toast notifications for errors ( formError and errors) and success
- */
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -29,6 +27,7 @@ export default function LoginPage() {
 
     if (!email || !password) {
       setFormError('Please enter email and password');
+      toast.error('Please enter email and password');
       return;
     }
 
@@ -37,12 +36,13 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (error) {
-      //Implement toast notification here
+      toast.error('An error occurred during login. Please check your credentials and try again.');
     }
   }, [error]);
 
   useEffect(() => {
     if (user && user.token && router) {
+      toast.success('Logged in successfully!');
       router.push('/home');
     }
   }, [user, router]);
@@ -52,7 +52,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm bg-white px-10 py-12 rounded-2xl shadow-lg">
         <h1 className="text-4xl font-bold text-form-text-title mb-1">Welcome Back</h1>
         <p className="text-form-text-subtitle mb-6">
-          Please enter your details to access your kitchen
+          Please enter your details to access your kitchen.
         </p>
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
