@@ -50,6 +50,12 @@ jobs:
             echo "apply_flag=" >> $GITHUB_OUTPUT
           fi
 
+      - name: Create remote directory # debugging
+        run: |
+          gcloud compute ssh ${{ secrets.GCP_K3S_VM }} \
+            --zone=${{ secrets.GCP_ZONE }} \
+            --command="mkdir -p /tmp/k8s-sync"
+
       - name: Copy manifests to VM
         run: |
           gcloud compute scp \
