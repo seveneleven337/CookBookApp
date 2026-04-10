@@ -1,6 +1,7 @@
 'use client';
 import { useUserStore } from '@/data/store/authStore';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 const brandClass = 'text-xl font-bold text-brand';
 const navItemsClass =
@@ -15,6 +16,7 @@ export default function NavBar() {
 
   const handleLogout = async () => {
     clearUser();
+    toast.success('Logged out successfully!');
   };
 
   return (
