@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useUserStore } from '@/data/store/authStore';
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
+export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const user = useUserStore((state) => state.user);
@@ -15,8 +15,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
     if (!hasHydrated) return;
 
     if (!user?.token) {
-      router.push('/login');
-      toast.info('Please log in to access the content.');
+      router.push('/redirect');
     }
   }, [user, hasHydrated, router]);
 
