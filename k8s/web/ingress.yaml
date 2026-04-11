@@ -6,11 +6,12 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: redirect-to-https@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - web.localhost
+        - cookbook.fi
       secretName: cloudflare-tls
   rules:
     - host: cookbook.fi
