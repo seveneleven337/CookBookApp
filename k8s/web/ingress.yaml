@@ -16,6 +16,13 @@ spec:
     - host: cookbook.fi
       http:
         paths:
+          - path: /api/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth
+                port:
+                  number: 4000
           - path: /
             pathType: Prefix
             backend:
