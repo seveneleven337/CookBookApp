@@ -23,6 +23,13 @@ spec:
                 name: auth
                 port:
                   number: 4000
+          - path: /api/recipes
+            pathType: Prefix
+            backend:
+              service:
+                name: recipe-management
+                port:
+                  number: 5001
           - path: /
             pathType: Prefix
             backend:
