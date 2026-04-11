@@ -13,11 +13,7 @@ const navItemsClass =
  * Improve logo * icon
  */
 
-type NavBarProps = {
-  variant?: 'landing' | 'dashboard';
-};
-
-export default function NavBar({ variant = 'landing' }: NavBarProps) {
+export default function NavBar() {
   const router = useRouter();
 
   const { user, clearUser } = useUserStore();
@@ -28,19 +24,19 @@ export default function NavBar({ variant = 'landing' }: NavBarProps) {
   };
 
   function breakfastHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function VeganHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function DessertHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function SaladHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   return (
