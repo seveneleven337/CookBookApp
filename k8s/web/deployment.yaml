@@ -23,7 +23,3 @@ spec:
           env:
             - name: NODE_ENV
               value: production
-            - name: AUTH_SERVICE_URL
-              value: http://auth:4000/api/auth
-            - name: NEXT_PUBLIC_RECIPE_SERVICE_URL
-              value: http://recipe-management:5001/api/recipes
