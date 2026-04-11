@@ -72,8 +72,8 @@ jobs:
             --project=${{ secrets.GCP_PROJECT }} \
             --quiet \
             --command="
-              kubectl rollout restart deployment/auth deployment/recipe-management deployment/web -n cookbookapp &&
-              kubectl rollout status deployment/auth -n cookbookapp --timeout=120s &&
-              kubectl rollout status deployment/recipe-management -n cookbookapp --timeout=120s &&
-              kubectl rollout status deployment/web -n cookbookapp --timeout=120s
+              sudo kubectl rollout restart deployment/auth deployment/recipe-management deployment/web -n cookbookapp &&
+              sudo kubectl rollout status deployment/auth -n cookbookapp --timeout=120s &&
+              sudo kubectl rollout status deployment/recipe-management -n cookbookapp --timeout=120s &&
+              sudo kubectl rollout status deployment/web -n cookbookapp --timeout=120s
             "
