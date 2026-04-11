@@ -1,28 +1,25 @@
 import CategoryCard from '@/components/CategoryCard';
+import { useUserStore } from '@/data/store/authStore';
 import { useRouter } from 'next/navigation';
-import React from 'react';
 
-type CategoryFrameProps = {
-  variant?: 'landing' | 'dashboard';
-};
-
-export default function CategoryFrame({ variant = 'landing' }: CategoryFrameProps) {
+export default function CategoryFrame() {
   const router = useRouter();
+  const user = useUserStore((state) => state.user);
 
   function breakfastHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function VeganHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function DessertHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   function SaladHandler() {
-    if (variant === 'landing') router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
   }
 
   return (
