@@ -50,6 +50,12 @@ spec:
           image: grafana/promtail:3.6.10
           args:
             - -config.file=/etc/promtail/promtail.yaml
+            - -config.expand-env=true
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
           ports:
             - containerPort: 9080
           volumeMounts:
