@@ -34,6 +34,7 @@ data:
 
     limits_config:
       retention_period: 7d
+      reject_old_samples: false
 
     compactor:
       working_directory: /loki/compactor
