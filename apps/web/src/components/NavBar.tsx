@@ -57,7 +57,7 @@ export default function NavBar() {
         </button>
       </div>
       <div className="flex items-center gap-4">
-        {!user ? (
+        {!user?.token ? (
           <>
             <Link href="/login" className="inline-block">
               <button className="rounded-full px-4 py-3 text-nav-item font-bold text-base border-2 border-transparent hover:border-nav-item duration-200">
