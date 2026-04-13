@@ -33,7 +33,7 @@ data:
             period: 24h
 
     limits_config:
-      retention_period: 7d
+      retention_period: 3d
       reject_old_samples: false
 
     compactor:
