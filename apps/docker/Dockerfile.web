@@ -9,6 +9,11 @@ RUN npm install
 FROM node:20-alpine AS builder
 WORKDIR /apps
 
+ARG RECIPE_API_URL
+ARG AUTH_API_URL
+ENV RECIPE_API_URL=$RECIPE_API_URL
+ENV AUTH_API_URL=$AUTH_API_URL
+
 COPY --from=deps /apps/node_modules ./node_modules
 COPY apps/web/ .
 
