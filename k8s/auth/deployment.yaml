@@ -18,6 +18,7 @@ spec:
       containers:
         - name: auth
           image: walaska/cookbookapp:auth
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000
           env:
