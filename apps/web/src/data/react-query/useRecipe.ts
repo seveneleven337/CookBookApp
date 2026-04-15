@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRandomMeal } from '../lib/recipe-api';
+import { getMealListByCategory, getRandomMeal } from '../lib/recipe-api';
 
 export function useRecipe() {
   return useQuery({
@@ -16,5 +16,40 @@ export function useRecipes() {
       return meals;
     },
     staleTime: Infinity,
+  });
+}
+
+export function useRecipesByCategory(category: string) {
+  return useQuery({
+    queryKey: ['mealsByCategory', category],
+    queryFn: async () => {
+      const meals = await getMealListByCategory(category);
+      return recipesByCategorySanitizer(meals, category);
+    },
+    staleTime: Infinity,
+  });
+}
+
+function recipesByCategorySanitizer(meals: any, category: string) {
+  if (!meals || !Array.isArray(meals)) {
+    throw new Error('Invalid data format: expected an array of meals');
+  }
+  return meals.map((meal) => {
+    if (
+      typeof meal.idMeal !== 'string' ||
+      typeof meal.strMeal !== 'string' ||
+      typeof meal.strMealThumb !== 'string'
+    ) {
+      throw new Error('Invalid meal data format');
+    }
+    return {
+      idMeal: meal.idMeal,
+      strMeal: meal.strMeal,
+      strCategory: category,
+      strArea: meal.strArea || '',
+      strInstructions: meal.strInstructions || '',
+      strMealThumb: meal.strMealThumb,
+      strTags: meal.strTags || '',
+    };
   });
 }

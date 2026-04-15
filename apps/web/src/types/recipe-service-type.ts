@@ -2,10 +2,10 @@ export type Meal = {
   idMeal: string;
   strMeal: string;
   strCategory: string;
-  strArea: string;
-  strInstructions: string;
+  strArea?: string;
+  strInstructions?: string;
   strMealThumb: string;
-  strTags: string;
+  strTags?: string;
 };
 
 export type Recipe = {
