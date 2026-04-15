@@ -11,7 +11,7 @@ export default function MainFrame() {
   };
 
   return (
-    <div className="w-full h-200 flex flex-row items-center justify-center pt-30 gap-10  bg-landing-bg bg-linear-to-tl from-landing-bg to-tertiary">
+    <div className="w-full h-200 flex flex-row items-center justify-center pt-30 gap-10   bg-landing-bg bg-linear-to-tl from-landing-bg to-tertiary">
       <div className="flex w-150 h-full items-center justify-center flex-col p-4">
         <h1 className="text-6xl w-full font-bold text-text-title">Discover Delicious Recipes,</h1>
         <h1 className="text-6xl w-full font-bold italic text-text-title-variant">
