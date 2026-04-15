@@ -2,12 +2,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/data/store/authStore';
 
 export default function MainFrame() {
   const router = useRouter();
   const [search, setSearch] = useState('');
+  const user = useUserStore((state) => state.user);
   const SearchHandler = () => {
-    router.push('/redirect');
+    if (!user?.token) router.push('/redirect');
+    else if (search) router.push(`/search/${search}`);
   };
 
   return (
