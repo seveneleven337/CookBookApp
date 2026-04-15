@@ -1,6 +1,5 @@
 'use client';
 import MealCard from '@/components/MealCard';
-import { useRecipes } from '@/data/react-query/useRecipe';
 import { Meal } from '@/types/recipe-service-type';
 
 type RecipeFramProps = {
