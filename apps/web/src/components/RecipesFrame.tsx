@@ -1,11 +1,12 @@
 'use client';
 import MealCard from '@/components/MealCard';
 import { useRecipes } from '@/data/react-query/useRecipe';
+import { Meal } from '@/types/recipe-service-type';
 
 type RecipeFramProps = {
   title: string;
   subtitle?: string;
-  meals: any[];
+  meals: Meal[];
 };
 
 export default function RecipesFrame({ title, subtitle, meals }: RecipeFramProps) {
