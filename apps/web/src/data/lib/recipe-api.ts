@@ -12,3 +12,14 @@ export async function getRandomMeal(): Promise<Meal> {
   const data = await res.json();
   return data.meals[0];
 }
+
+export async function getMealListByCategory(category: string): Promise<Meal[]> {
+  const res = await fetch(`${BASE_URL}/filter.php?c=${category}`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch meal list');
+  const data = await res.json();
+  if (!data.meals) throw new Error('No meals found for this category');
+  console.log('Fetched meals by category:', data.meals);
+  return data.meals;
+}
