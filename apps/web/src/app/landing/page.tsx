@@ -1,7 +1,7 @@
 'use client';
 import Footer from '@/components/Footer';
 import NavBar from '@/components/NavBar';
-import MainFrame from './MainFrame';
+import MainFrame from '../../components/MainFrame';
 import RecipesFrame from '../../components/RecipesFrame';
 import CategoryFrame from './CategoryFrame';
 import { useUserStore } from '@/data/store/authStore';
