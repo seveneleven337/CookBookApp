@@ -14,7 +14,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     if (!hasHydrated) return;
 
     if (!user?.token) {
-      router.push('/redirect');
+      router.push('/');
     }
   }, [user, hasHydrated, router]);
 
