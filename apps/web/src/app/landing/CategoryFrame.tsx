@@ -8,18 +8,22 @@ export default function CategoryFrame() {
 
   function breakfastHandler() {
     if (!user?.token) router.push('/redirect');
+    else router.push('/category/breakfast');
   }
 
   function VeganHandler() {
     if (!user?.token) router.push('/redirect');
+    else router.push('/category/vegan');
   }
 
   function DessertHandler() {
     if (!user?.token) router.push('/redirect');
+    else router.push('/category/dessert');
   }
 
   function SaladHandler() {
     if (!user?.token) router.push('/redirect');
+    else router.push('/category/salad');
   }
 
   return (
