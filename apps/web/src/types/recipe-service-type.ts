@@ -16,3 +16,9 @@ export type Recipe = {
   created_at: string;
   updated_at: string;
 };
+
+export type RecipeByCategory = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+};

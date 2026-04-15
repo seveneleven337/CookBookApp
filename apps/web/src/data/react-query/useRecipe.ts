@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMealListByCategory, getRandomMeal } from '../lib/recipe-api';
+import { RecipeByCategory } from '@/types/recipe-service-type';
 
 export function useRecipe() {
   return useQuery({
@@ -30,7 +31,7 @@ export function useRecipesByCategory(category: string) {
   });
 }
 
-function recipesByCategorySanitizer(meals: any, category: string) {
+function recipesByCategorySanitizer(meals: RecipeByCategory[], category: string) {
   if (!meals || !Array.isArray(meals)) {
     throw new Error('Invalid data format: expected an array of meals');
   }
@@ -46,10 +47,10 @@ function recipesByCategorySanitizer(meals: any, category: string) {
       idMeal: meal.idMeal,
       strMeal: meal.strMeal,
       strCategory: category,
-      strArea: meal.strArea || '',
-      strInstructions: meal.strInstructions || '',
+      strArea: '',
+      strInstructions: '',
       strMealThumb: meal.strMealThumb,
-      strTags: meal.strTags || '',
+      strTags: '',
     };
   });
 }
