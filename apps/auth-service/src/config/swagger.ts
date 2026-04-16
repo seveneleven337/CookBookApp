@@ -10,7 +10,7 @@ const options: Options = {
     },
     servers: [
       {
-        url: 'http://localhost:4000/api/auth',
+        url: process.env.SWAGGER_AUTH_SERVER_URL || 'http://localhost:4000/api/auth',
       },
     ],
     components: {
