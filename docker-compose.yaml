@@ -126,6 +126,7 @@ services:
         condition: service_healthy
     environment:
       RECIPE_MANAGEMENT_SERVICE_PORT: '5001'
+      JWT_SECRET: ${JWT_SECRET}
       RECIPE_DB_NAME: ${RECIPE_DB_NAME}
       RECIPE_DB_USER: ${RECIPE_DB_USER}
       RECIPE_DB_PASSWORD: ${RECIPE_DB_PASSWORD}
