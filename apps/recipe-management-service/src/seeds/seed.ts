@@ -5,8 +5,8 @@ export const seedRecipes = async () => {
   if (count === 0) {
     await Recipe.create({
       userId: 1,
-      title: 'Sample recipe',
-      description: 'Seeded example recipe',
+      mealId: 'sample-meal-id',
+      category: 'Miscellaneous',
     });
   }
 };

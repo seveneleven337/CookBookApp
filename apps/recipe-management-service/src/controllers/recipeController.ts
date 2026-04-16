@@ -43,16 +43,12 @@ export const getRecipe = async (req: AuthenticatedRequest, res: Response) => {
 export const addRecipe = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user!.id;
-    const { title, description } = req.body;
-    if (!title) {
-      res.status(400).json({ error: 'title is required' });
+    const { mealId, category } = req.body;
+    if (!mealId || !category) {
+      res.status(400).json({ error: 'mealId and category are required' });
       return;
     }
-    const row = await createRecipe({
-      userId,
-      title,
-      description: description ?? null,
-    });
+    const row = await createRecipe({ userId, mealId, category });
     res.status(201).json(row);
   } catch (err) {
     console.error(err);
