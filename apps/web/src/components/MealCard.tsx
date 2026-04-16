@@ -14,7 +14,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
   }
 
   return (
-    <div className="relative flex-1 max-w-80 aspect-auto rounded-3xl overflow-hidden  bg-white">
+    <div className="relative w-full max-w-80 min-w-0 rounded-3xl overflow-hidden bg-white">
       <Image
         src={meal.strMealThumb}
         alt={meal.strMeal}
