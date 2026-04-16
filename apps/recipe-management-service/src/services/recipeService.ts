@@ -6,8 +6,8 @@ import Recipe from '../models/Recipe';
 export interface RecipeRow {
   id: string;
   user_id: number;
-  title: string;
-  description: string | null;
+  meal_id: string;
+  category: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -15,8 +15,8 @@ export interface RecipeRow {
 const toRow = (r: Recipe): RecipeRow => ({
   id: r.id,
   user_id: r.userId,
-  title: r.title,
-  description: r.description,
+  meal_id: r.mealId,
+  category: r.category,
   created_at: r.createdAt,
   updated_at: r.updatedAt,
 });
@@ -36,13 +36,13 @@ export const getRecipeById = async (id: string): Promise<RecipeRow | null> => {
 
 export const createRecipe = async (input: {
   userId: number;
-  title: string;
-  description?: string | null;
+  mealId: string;
+  category: string;
 }): Promise<RecipeRow> => {
   const row = await Recipe.create({
     userId: input.userId,
-    title: input.title,
-    description: input.description ?? null,
+    mealId: input.mealId,
+    category: input.category,
   });
   return toRow(row);
 };
