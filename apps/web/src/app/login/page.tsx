@@ -27,7 +27,7 @@ export default function LoginPage() {
 
     if (!email || !password) {
       setFormError('Please enter email and password');
-      toast.error('Please enter email and password');
+      toast.error('Please enter email and password', { position: 'bottom-right' });
       return;
     }
 
@@ -36,13 +36,15 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (error) {
-      toast.error('An error occurred during login. Please check your credentials and try again.');
+      toast.error('An error occurred during login. Please check your credentials and try again.', {
+        position: 'bottom-right',
+      });
     }
   }, [error]);
 
   useEffect(() => {
     if (user && user.token && router) {
-      toast.success('Logged in successfully!');
+      toast.success('Logged in successfully!', { position: 'bottom-right' });
       router.push('/home');
     }
   }, [user, router]);
