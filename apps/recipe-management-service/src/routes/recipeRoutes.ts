@@ -3,7 +3,7 @@ import {
   listRecipes,
   getRecipe,
   addRecipe,
-  removeRecipe,
+  removeRecipeByMealId,
 } from '../controllers/recipeController';
 import { authenticate } from '../middleware/authenticate';
 
@@ -14,6 +14,6 @@ router.use(authenticate);
 router.get('/', listRecipes);
 router.get('/:id', getRecipe);
 router.post('/', addRecipe);
-router.delete('/:id', removeRecipe);
+router.delete('/meal/:mealId', removeRecipeByMealId);
 
 export default router;
