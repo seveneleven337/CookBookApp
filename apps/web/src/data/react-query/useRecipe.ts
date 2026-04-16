@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMealByIngredient, getMealListByCategory, getRandomMeal } from '../lib/recipe-api';
-import { recipesByFilterSanitizer } from './utils';
+import {
+  getMealById,
+  getMealByIngredient,
+  getMealListByCategory,
+  getRandomMeal,
+} from '../lib/recipe-api';
+import { mealSanitizer, recipesByFilterSanitizer } from './utils';
 
 export function useRecipe() {
   return useQuery({
@@ -37,6 +42,17 @@ export function useRecipesByIngredient(ingredient: string) {
     queryFn: async () => {
       const meals = await getMealByIngredient(ingredient);
       return recipesByFilterSanitizer(meals, ingredient);
+    },
+    staleTime: Infinity,
+  });
+}
+
+export function useRecipeById(id: string) {
+  return useQuery({
+    queryKey: ['mealById', id],
+    queryFn: async () => {
+      const meals = await getMealById(id);
+      return mealSanitizer(meals);
     },
     staleTime: Infinity,
   });
