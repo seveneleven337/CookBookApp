@@ -34,3 +34,14 @@ export async function getMealByIngredient(ingredient: string): Promise<Meal[]> {
   console.log('Fetched meals by ingredient:', data.meals);
   return data.meals;
 }
+
+export async function getMealById(id: string): Promise<Meal> {
+  const res = await fetch(`${BASE_URL}/lookup.php?i=${id}`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch meal by ID');
+  const data = await res.json();
+  if (!data.meals) throw new Error('Meal not found with this ID');
+  console.log('Fetched meal by ID:', data.meals[0]);
+  return data.meals[0];
+}
