@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
     if (!name || !lastName || !email || !password) {
       setFormError('Please fill in all fields.');
-      toast.error('Please fill in all fields.');
+      toast.error('Please fill in all fields.', { position: 'bottom-right' });
       return;
     }
 
@@ -36,13 +36,15 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (error) {
-      toast.error('An error occurred during registration. Please try again.');
+      toast.error('An error occurred during registration. Please try again.', {
+        position: 'bottom-right',
+      });
     }
   }, [error]);
 
   useEffect(() => {
     if (isRegistered && router) {
-      toast.success('Account created successfully! Please log in.');
+      toast.success('Account created successfully! Please log in.', { position: 'bottom-right' });
       router.push('/login');
     }
   }, [isRegistered, router]);
