@@ -44,4 +44,11 @@
 
   /*category frame*/
   --color-category-card-bg: #f5f5dc;
+
+  /*category frame*/
+  --color-tag-bg: #e4e4d7;
+
+  /*recipe*/
+  --color-recipe-bg: #f2f2e4;
+  --color-recipe-border: #f2f2e4;
 }
