@@ -10,10 +10,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - grafana.localhost
+        - grafana.cookbook.fi
       secretName: cloudflare-tls
   rules:
-    - host: grafana.localhost
+    - host: grafana.cookbook.fi
       http:
         paths:
           - path: /
