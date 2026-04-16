@@ -10,7 +10,7 @@ const options: Options = {
     },
     servers: [
       {
-        url: process.env.SWAGGER_SERVER_URL || 'http://localhost:5001/api/recipes',
+        url: process.env.SWAGGER_RECIPE_MANAGEMENT_SERVER_URL || 'http://localhost:5001/api/recipes',
       },
     ],
     components: {
