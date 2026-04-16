@@ -5,8 +5,11 @@ import {
   addRecipe,
   removeRecipe,
 } from '../controllers/recipeController';
+import { authenticate } from '../middleware/authenticate';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', listRecipes);
 router.get('/:id', getRecipe);
