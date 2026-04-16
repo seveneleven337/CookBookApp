@@ -23,3 +23,14 @@ export async function getMealListByCategory(category: string): Promise<Meal[]> {
   console.log('Fetched meals by category:', data.meals);
   return data.meals;
 }
+
+export async function getMealByIngredient(ingredient: string): Promise<Meal[]> {
+  const res = await fetch(`${BASE_URL}/filter.php?i=${ingredient}`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch meals by ingredient');
+  const data = await res.json();
+  if (!data.meals) throw new Error('No meals found with this ingredient');
+  console.log('Fetched meals by ingredient:', data.meals);
+  return data.meals;
+}
