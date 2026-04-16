@@ -50,3 +50,5 @@ spec:
                 secretKeyRef:
                   name: auth-secrets
                   key: AUTH_DB_PASSWORD
+            - name: SWAGGER_AUTH_SERVER_URL
+              value: "https://cookbook.fi/api/auth"
