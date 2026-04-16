@@ -47,7 +47,7 @@ export const createRecipe = async (input: {
   return toRow(row);
 };
 
-export const deleteRecipeById = async (id: string): Promise<boolean> => {
-  const n = await Recipe.destroy({ where: { id } });
+export const deleteRecipeByMealId = async (mealId: string, userId: number): Promise<boolean> => {
+  const n = await Recipe.destroy({ where: { mealId, userId } });
   return n > 0;
 };
