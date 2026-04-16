@@ -6,6 +6,9 @@ export type Meal = {
   strInstructions?: string;
   strMealThumb: string;
   strTags?: string;
+  strYoutube?: string;
+  [key: `strIngredient${number}`]: string | undefined;
+  [key: `strMeasure${number}`]: string | undefined;
 };
 
 export type Recipe = {
