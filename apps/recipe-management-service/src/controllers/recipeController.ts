@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import {
   listRecipesForUser,
+  listRecipesByCategory,
   getRecipeById,
   createRecipe,
   deleteRecipeByMealId,
@@ -15,6 +16,18 @@ export const listRecipes = async (req: AuthenticatedRequest, res: Response) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to get recipes' });
+  }
+};
+
+export const listRecipesByCategoryHandler = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user!.id;
+    const category = Array.isArray(req.params.category) ? req.params.category[0] : req.params.category;
+    const rows = await listRecipesByCategory(userId, category);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to get recipes by category' });
   }
 };
 
