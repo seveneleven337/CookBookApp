@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMealListByCategory, getRandomMeal } from '../lib/recipe-api';
-import { RecipeByCategory } from '@/types/recipe-service-type';
+import { getMealByIngredient, getMealListByCategory, getRandomMeal } from '../lib/recipe-api';
+import { recipesByFilterSanitizer } from './utils';
 
 export function useRecipe() {
   return useQuery({
@@ -25,32 +25,19 @@ export function useRecipesByCategory(category: string) {
     queryKey: ['mealsByCategory', category],
     queryFn: async () => {
       const meals = await getMealListByCategory(category);
-      return recipesByCategorySanitizer(meals, category);
+      return recipesByFilterSanitizer(meals, category);
     },
     staleTime: Infinity,
   });
 }
 
-function recipesByCategorySanitizer(meals: RecipeByCategory[], category: string) {
-  if (!meals || !Array.isArray(meals)) {
-    throw new Error('Invalid data format: expected an array of meals');
-  }
-  return meals.map((meal) => {
-    if (
-      typeof meal.idMeal !== 'string' ||
-      typeof meal.strMeal !== 'string' ||
-      typeof meal.strMealThumb !== 'string'
-    ) {
-      throw new Error('Invalid meal data format');
-    }
-    return {
-      idMeal: meal.idMeal,
-      strMeal: meal.strMeal,
-      strCategory: category,
-      strArea: '',
-      strInstructions: '',
-      strMealThumb: meal.strMealThumb,
-      strTags: '',
-    };
+export function useRecipesByIngredient(ingredient: string) {
+  return useQuery({
+    queryKey: ['mealsByIngredient', ingredient],
+    queryFn: async () => {
+      const meals = await getMealByIngredient(ingredient);
+      return recipesByFilterSanitizer(meals, ingredient);
+    },
+    staleTime: Infinity,
   });
 }
