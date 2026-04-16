@@ -47,7 +47,9 @@ export default function Recipe({ meal }: { meal: Meal }) {
             {meal.strArea && <Tag text={meal.strArea} variant="secondary" />}
           </div>
 
-          <RecipeTagList tags={meal.strTags?.split(',').map((tag) => tag.trim()) || []} />
+          {meal.strTags && (
+            <RecipeTagList tags={meal.strTags.split(',').map((tag) => tag.trim()) || []} />
+          )}
         </div>
 
         {/* Content Grid */}
