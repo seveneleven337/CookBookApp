@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import recipeRoutes from './routes/recipeRoutes';
+import { CORS_ORIGINS } from './config/env';
 
 const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://web.localhost'],
+    origin: CORS_ORIGINS,
     credentials: true,
   }),
 );
