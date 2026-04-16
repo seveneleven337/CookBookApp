@@ -4,8 +4,8 @@ import sequelize from '../config/db';
 class Recipe extends Model {
   public id!: string;
   public userId!: number;
-  public title!: string;
-  public description!: string | null;
+  public mealId!: string;
+  public category!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -22,14 +22,14 @@ Recipe.init(
       allowNull: false,
       field: 'user_id',
     },
-    title: {
-      type: DataTypes.STRING(500),
+    mealId: {
+      type: DataTypes.STRING,
       allowNull: false,
-      validate: { notEmpty: true },
+      field: 'meal_id',
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
