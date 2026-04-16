@@ -47,6 +47,14 @@ export const createRecipe = async (input: {
   return toRow(row);
 };
 
+export const listRecipesByCategory = async (userId: number, category: string): Promise<RecipeRow[]> => {
+  const rows = await Recipe.findAll({
+    where: { userId, category },
+    order: [['createdAt', 'DESC']],
+  });
+  return rows.map(toRow);
+};
+
 export const deleteRecipeByMealId = async (mealId: string, userId: number): Promise<boolean> => {
   const n = await Recipe.destroy({ where: { mealId, userId } });
   return n > 0;
