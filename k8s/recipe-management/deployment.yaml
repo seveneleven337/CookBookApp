@@ -50,3 +50,5 @@ spec:
                   key: JWT_SECRET
             - name: SWAGGER_RECIPE_MANAGEMENT_SERVER_URL
               value: "https://cookbook.fi/api/recipes"
+            - name: CORS_ORIGINS
+              value: "https://cookbook.fi"
