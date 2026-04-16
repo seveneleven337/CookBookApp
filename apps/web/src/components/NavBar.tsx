@@ -20,7 +20,7 @@ export default function NavBar() {
 
   const handleLogout = async () => {
     clearUser();
-    toast.success('Logged out successfully!');
+    toast.success('Logged out successfully!', { position: 'bottom-right' });
   };
 
   function breakfastHandler() {
