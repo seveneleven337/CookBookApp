@@ -46,3 +46,10 @@ spec:
                 secretKeyRef:
                   name: recipe-secrets
                   key: RECIPE_DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: recipe-sercrets
+                  key: JWT_SECRET
+            - name: SWAGGER_SERVER_URL
+              value: "https://cookbook.fi/api/recipes"
