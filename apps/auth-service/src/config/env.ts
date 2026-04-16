@@ -5,3 +5,6 @@ export const AUTH_DB_USER = process.env.AUTH_DB_USER!;
 export const AUTH_DB_PASSWORD = process.env.AUTH_DB_PASSWORD!;
 export const DB_HOST = process.env.AUTH_DB_HOST;
 export const DB_PORT = Number(process.env.AUTH_DB_PORT) || 3306;
+export const CORS_ORIGINS = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',')
+  : ['http://localhost:3000', 'https://web.localhost'];
