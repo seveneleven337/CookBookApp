@@ -9,7 +9,7 @@ type CategoryCardProps = {
 
 export default function CategoryCard({
   title = 'Breakfast',
-  img = '/landingpage1.png',
+  img = '/MainFrameImage.webp',
   height = 300,
   width = 200,
 }: CategoryCardProps) {
