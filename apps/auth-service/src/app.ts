@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
+import { CORS_ORIGINS } from './config/env';
 
 const app = express();
 
 // Middlewares
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://web.localhost'],
+    origin: CORS_ORIGINS,
     credentials: true,
   }),
 );
