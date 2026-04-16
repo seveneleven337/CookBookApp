@@ -3,6 +3,7 @@
 import { Meal } from '@/types/recipe-service-type';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Tag from './Tag';
 
 export default function MealCard({ meal }: { meal: Meal }) {
   const router = useRouter();
@@ -42,11 +43,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
           <h2 className="text-2xl font-bold text-gray-900 mb-4 flex-4 overflow-hidden line-clamp-3">
             {meal.strMeal}
           </h2>
-          {meal.strTags && (
-            <span className="bg-card-tag-bg backdrop-blur text-gray-700 text-xs font-semibold px-3 py-1 rounded flex-1">
-              {meal.strArea}
-            </span>
-          )}
+          {meal.strArea && <Tag text={meal.strArea} />}
         </div>
         <div className="w-full text-sm text-gray-500  overflow-hidden line-clamp-4">
           {meal.strInstructions}
