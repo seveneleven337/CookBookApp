@@ -7,3 +7,6 @@ export const RECIPE_DB_PASSWORD = process.env.RECIPE_DB_PASSWORD!;
 export const RECIPE_DB_HOST = process.env.RECIPE_DB_HOST || 'localhost';
 export const RECIPE_DB_PORT = Number(process.env.RECIPE_DB_PORT) || 5432;
 export const JWT_SECRET = process.env.JWT_SECRET!;
+export const CORS_ORIGINS = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',')
+  : ['http://localhost:3000', 'https://web.localhost'];
