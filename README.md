@@ -48,6 +48,9 @@ auth-service: implement authentication logic
 
 recipe-management-service: implement feature
 
+### Recommendation service
+
+recommendation-service
 ---
 
 ## General Guidelines
