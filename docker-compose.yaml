@@ -218,6 +218,24 @@ services:
     networks:
       - cookbookapp
 
+  recommendation-service:
+    build:
+      context: .
+      dockerfile: apps/docker/Dockerfile.recommendation
+    container_name: recommendation-service
+    ports:
+      - '${RECOMMENDATION_SERVICE_PORT}:8000'
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.recipe-management-service.rule=Host(`recommendation.localhost`)'
+      - 'traefik.http.routers.recipe-management-service.entrypoints=websecure'
+      - 'traefik.http.routers.recipe-management-service.tls=true'
+      - 'traefik.http.services.recipe-management-service.loadbalancer.server.port=${RECOMMENDATION_SERVICE_PORT}'
+    networks:
+      - cookbookapp
+
 volumes:
   auth-db-data:
   phpmyadmin-data:
