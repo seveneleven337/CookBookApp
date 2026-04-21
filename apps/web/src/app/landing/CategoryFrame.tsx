@@ -35,13 +35,13 @@ export default function CategoryFrame() {
             <CategoryCard title="Breakfast" img="/breakfast.webp" height={200} width={300} />
           </button>
           <button onClick={VeganHandler}>
-            <CategoryCard title="Vegan" img="/Vegan.webp" height={200} width={300} />
+            <CategoryCard title="Vegan" img="/vegan.webp" height={200} width={300} />
           </button>
           <button onClick={DessertHandler}>
-            <CategoryCard title="Dessert" img="/Dessert.webp" height={200} width={300} />
+            <CategoryCard title="Dessert" img="/dessert.webp" height={200} width={300} />
           </button>
           <button onClick={SaladHandler}>
-            <CategoryCard title="Salad" img="/QuickMeal.webp" height={200} width={300} />
+            <CategoryCard title="Salad" img="/salad.webp" height={200} width={300} />
           </button>
         </div>
       </div>
