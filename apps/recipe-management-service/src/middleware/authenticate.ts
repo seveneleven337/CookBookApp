@@ -12,6 +12,12 @@ export const authenticate = (
   next: NextFunction,
 ): void => {
   const authHeader = req.headers.authorization;
+  const publicPaths = ['/docs', '/openapi.json'];
+
+  if (publicPaths.some((path) => req.path.startsWith(path))) {
+    return next();
+  }
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     res.status(401).json({ error: 'Missing or invalid Authorization header' });
     return;
