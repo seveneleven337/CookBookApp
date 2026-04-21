@@ -11,7 +11,7 @@ export async function getRecommendedRecipes(user: User, recipeId: string): Promi
       Authorization: `Bearer ${user.token!}`,
     },
     body: JSON.stringify({
-      recipe_id: '53267',
+      recipe_id: recipeId,
     }),
   });
 
