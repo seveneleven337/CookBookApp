@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
-
+from typing import List
 
 app = FastAPI()
 
@@ -30,6 +30,24 @@ with open(file_path, "r", encoding="utf-8") as file:
 
 class RecipeRequest(BaseModel):
     recipe_id: str
+
+class User(BaseModel):
+    id: int
+    email: str
+
+class Recipe(BaseModel):
+    idMeal: str
+    strMeal: str
+    strCategory: str
+    strArea: str
+    strInstructions: str
+    strMealThumb: str
+    strTags: str
+
+class RecommendationResponse(BaseModel):
+    user: User
+    liked_recipe_id: str
+    recommendations: List[Recipe]
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security)
@@ -92,6 +110,7 @@ def score_recipe(source_recipe, candidate_recipe):
 
 def format_recipe(recipe):
     return {
+        "idMeal": recipe.get("idMeal", ""),
         "strMeal": recipe.get("strMeal", ""),
         "strCategory": recipe.get("strCategory", ""),
         "strArea": recipe.get("strArea", ""),
@@ -124,7 +143,37 @@ def recommend_recipes(recipe_id, limit=6):
 #     return {"message": "Recipe recommendation API is running"}
 
 
-@app.post("/recommend")
+@app.post(
+    "/api/recommend",
+    response_model=RecommendationResponse,
+    response_model_exclude_unset=True,
+    responses={
+        200: {
+            "content": {
+                "application/json": {
+                    "example": {
+                        "user": {
+                            "id": 1,
+                            "email": "test@mail.com"
+                        },
+                        "liked_recipe_id": "53030",
+                        "recommendations": [
+                            {
+                                "idMeal": "52772",
+                                "strMeal": "Teriyaki Chicken",
+                                "strCategory": "Chicken",
+                                "strArea": "Japanese",
+                                "strInstructions": "Cook...",
+                                "strMealThumb": "https://...",
+                                "strTags": "Asian,Chicken"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+)
 def recommend(
     request: RecipeRequest,
     current_user: dict = Depends(get_current_user)
@@ -136,8 +185,8 @@ def recommend(
 
     recommendations = recommend_recipes(request.recipe_id, limit=6)
 
-    return {
-        "user": current_user,
-        "liked_recipe_id": request.recipe_id,
-        "recommendations": recommendations
-    }
+    return RecommendationResponse(
+        user=User(**current_user),
+        liked_recipe_id=request.recipe_id,
+        recommendations=[Recipe(**r) for r in recommendations]
+    )
