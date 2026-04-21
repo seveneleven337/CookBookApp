@@ -17,12 +17,20 @@ export default function HomePage() {
       <MainFrame />
       {/* categories */}
       <CategoryFrame />
+      {/* 6 recommended recipes */}
+      <RecipesFrame
+        title={'Latest From The Kitchen'}
+        subtitle={'*Good food is the foundation for genuine happiness'}
+        meals={meals || []}
+        variant="recommended"
+      />
       {/* 6 random recipes */}
       <RecipesFrame
         title={'Latest From The Kitchen'}
         subtitle={'*Good food is the foundation for genuine happiness'}
         meals={meals || []}
-      />{' '}
+        variant="default"
+      />
       <Footer />
     </div>
   );
