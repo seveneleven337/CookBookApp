@@ -2,13 +2,19 @@
 import MealCard from '@/components/MealCard';
 import { Meal } from '@/types/recipe-service-type';
 
-type RecipeFramProps = {
+type RecipeFrameProps = {
   title: string;
   subtitle?: string;
   meals: Meal[];
+  variant?: 'default' | 'recommended';
 };
 
-export default function RecipesFrame({ title, subtitle, meals }: RecipeFramProps) {
+export default function RecipesFrame({
+  title,
+  subtitle,
+  meals,
+  variant = 'default',
+}: RecipeFrameProps) {
   if (!meals) return null;
   return (
     <div className="flex flex-col w-full h-fit items-center justify-center  p-12 gap-6">
@@ -20,7 +26,7 @@ export default function RecipesFrame({ title, subtitle, meals }: RecipeFramProps
         <div className="w-full flex justify-center">
           <div className="w-full max-w-5xl grid gap-5 py-4 overflow-x-hidden md:grid-cols-3 justify-center items-center">
             {meals.slice(0, 6).map((meal) => (
-              <MealCard key={meal.idMeal} meal={meal} />
+              <MealCard key={meal.idMeal + variant} meal={meal} variant={variant} />
             ))}
           </div>
         </div>
