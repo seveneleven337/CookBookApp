@@ -51,6 +51,7 @@ jobs:
           build-args: |
             RECIPE_API_URL=${{ secrets.RECIPE_SERVICE_URL }}
             AUTH_API_URL=${{ secrets.AUTH_SERVICE_URL }}
+            RECOMMENDED_RECIPES_URL=${{ secrets.RECOMMENDED_RECIPES_URL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
