@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Bookmark } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/data/store/authStore';
