@@ -25,6 +25,8 @@ jobs:
             dockerfile: apps/docker/Dockerfile.recipe-management-service
           - service: web
             dockerfile: apps/docker/Dockerfile.web
+          - service: recommendation-service
+            dockerfile: apps/docker/Dockerfile.recommendation
 
     steps:
       - name: Checkout
@@ -78,6 +80,7 @@ jobs:
               sudo kubectl set image deployment/auth auth=${{ env.IMAGE_REPO }}:auth-${{ github.sha }} -n cookbookapp &&
               sudo kubectl set image deployment/recipe-management recipe-management=${{ env.IMAGE_REPO }}:recipe-management-${{ github.sha }} -n cookbookapp &&
               sudo kubectl set image deployment/web web=${{ env.IMAGE_REPO }}:web-${{ github.sha }} -n cookbookapp &&
+              sudo kubectl set image deployment/recommendation recommendation=${{ env.IMAGE_REPO }}:recommendation-${{ github.sha }} -n cookbookapp &&
               sudo kubectl rollout status deployment/auth -n cookbookapp --timeout=120s &&
               sudo kubectl rollout status deployment/recipe-management -n cookbookapp --timeout=120s &&
               sudo kubectl rollout status deployment/web -n cookbookapp --timeout=120s
