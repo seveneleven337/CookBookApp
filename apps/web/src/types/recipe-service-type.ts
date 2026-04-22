@@ -25,3 +25,12 @@ export type RecipeByCategory = {
   strMeal: string;
   strMealThumb: string;
 };
+
+export type GetRecipeFromServiceType = {
+  id: string;
+  user_id: number;
+  meal_id: string;
+  category: string;
+  created_at: string;
+  updated_at: string;
+};
