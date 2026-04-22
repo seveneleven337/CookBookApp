@@ -1,4 +1,4 @@
-import { Meal } from '@/types/recipe-type';
+import { Meal } from '@/types/recipe-service-type';
 import { BASE_URL } from './endpoints';
 
 /*

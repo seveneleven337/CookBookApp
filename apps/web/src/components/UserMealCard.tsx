@@ -1,6 +1,6 @@
 'use client';
 
-import { Meal } from '@/types/recipe-type';
+import { Meal } from '@/types/recipe-service-type';
 import Image from 'next/image';
 
 /*
