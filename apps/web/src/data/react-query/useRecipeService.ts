@@ -62,6 +62,5 @@ export async function getRecipeDataById(recipes: GetRecipeFromServiceType[]): Pr
       return meal;
     }),
   );
-  console.log(detailedRecipes);
   return detailedRecipes;
 }
