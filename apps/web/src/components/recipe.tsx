@@ -1,7 +1,7 @@
-import { Meal } from '@/types/recipe-type';
 import { RecipeIngredients, RecipeTagList, RecipeVideo } from './RecipeParts';
 import Image from 'next/image';
 import Tag from './Tag';
+import { Meal } from '@/types/recipe-service-type';
 
 function getIngredients(meal: Meal) {
   const ingredients: { ingredient: string; measure: string }[] = [];
