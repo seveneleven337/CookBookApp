@@ -1,34 +1,58 @@
-import { Recipe } from '@/types/recipe-service-type';
+import { GetRecipeFromServiceType, Recipe } from '@/types/recipe-service-type';
 import { RECIPE_API_URL } from './endpoints';
 
 /*
- * Recipe service functions for saving, fetching, and deleting user recipes from docker service container.
- * These functions interact with the backend API to manage user-specific recipe data.
- *  Each function handles API requests and responses, including error handling for failed requests.
+ * Recipe service functions
  */
 
-export async function saveRecipe(userId: number, title: string, description: string) {
+export async function saveRecipe(mealId: string, category: string, token: string): Promise<Recipe> {
   const res = await fetch(`${RECIPE_API_URL}/`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user_id: userId, title, description }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      mealId,
+      category,
+    }),
   });
-  if (!res.ok) throw new Error('Failed to save recipe');
-  return res.json();
+
+  if (!res.ok) {
+    throw new Error('Failed to save recipe');
+  }
+
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
-export async function getUserRecipes(userId: number): Promise<Recipe[]> {
-  const res = await fetch(`${RECIPE_API_URL}/?user_id=${userId}`, {
+export async function getRecipes(token: string): Promise<GetRecipeFromServiceType[]> {
+  const res = await fetch(`${RECIPE_API_URL}/`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     cache: 'no-store',
   });
-  if (!res.ok) throw new Error('Failed to fetch recipes');
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch recipes');
+  }
+
   return res.json();
 }
 
-export async function deleteRecipe(recipeId: string) {
-  const res = await fetch(`${RECIPE_API_URL}/${recipeId}`, {
+export async function deleteRecipe(mealId: string, token: string): Promise<void> {
+  console.log(`Deleting recipe with ID: ${mealId}`);
+  const res = await fetch(`${RECIPE_API_URL}/meal/${mealId}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-  if (!res.ok) throw new Error('Failed to delete recipe');
-  return res.status === 204 ? null : res.json();
+
+  if (!res.ok) {
+    throw new Error('Failed to delete recipe');
+  }
 }
