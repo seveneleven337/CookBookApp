@@ -1,6 +1,4 @@
 'use client';
-import Footer from '@/components/Footer';
-import NavBar from '@/components/NavBar';
 
 import CategoryFrame from '@/app/landing/CategoryFrame';
 import RecipesFrame from '@/components/RecipesFrame';
@@ -15,8 +13,6 @@ export default function HomePage() {
   const { data: recommendedMeals } = useRecommendedRecipes(user!, '53267');
   return (
     <div className="flex flex-col items-center justify-center w-full gap-4">
-      {/* nav bar */}
-      <NavBar />
       {/* landing content */}
       <MainFrame />
       {/* categories */}
@@ -26,7 +22,7 @@ export default function HomePage() {
         title={'Recommended For Your Kitchen'}
         subtitle={'*Handpicked recipes just for you'}
         meals={recommendedMeals || []}
-        variant="recommended"
+        variant="default"
       />
       {/* 6 random recipes */}
       <RecipesFrame
@@ -35,7 +31,6 @@ export default function HomePage() {
         meals={meals || []}
         variant="default"
       />
-      <Footer />
     </div>
   );
 }
