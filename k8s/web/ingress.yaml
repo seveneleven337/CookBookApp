@@ -30,6 +30,13 @@ spec:
                 name: recipe-management
                 port:
                   number: 5001
+          - path: /api/recommend
+            pathType: Prefix
+            backend:
+              service:
+                name: recommendation
+                port:
+                  number: 8000
           - path: /
             pathType: Prefix
             backend:
