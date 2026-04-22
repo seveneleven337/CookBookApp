@@ -24,7 +24,9 @@ spec:
           env:
             - name: NODE_ENV
               value: production
-            - name: RECIPE_SERVICE_URL
+            - name: RECIPE_API_URL
               value: "https://cookbook.fi/api/recipes"
-            - name: AUTH_SERVICE_URL
+            - name: AUTH_API_URL
               value: "https://cookbook.fi/api/auth"
+            - name: RECOMMENDED_RECIPES_URL
+              value: "https://cookbook.fi/api/recommend"
