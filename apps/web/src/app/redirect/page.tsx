@@ -52,7 +52,7 @@ export default function RedirectPage() {
             Sign in to continue
           </h1>
           <p className="text-sm text-text-subtitle">
-            You've discovered exclusive content. Please log in or create an account to continue
+            You&apos;ve discovered exclusive content. Please log in or create an account to continue
             reading.
           </p>
         </div>

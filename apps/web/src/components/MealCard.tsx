@@ -1,14 +1,14 @@
 'use client';
 
-import { Meal } from '@/types/recipe-type';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Tag from './Tag';
 import { useUserStore } from '@/data/store/authStore';
 import { toast } from 'sonner';
-import { useDeleteRecipe, useRecipes, useSaveRecipe } from '@/data/react-query/useRecipeService';
+import { useDeleteRecipe, useSaveRecipe } from '@/data/react-query/useRecipeService';
 import { Trash2 } from 'lucide-react';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Meal } from '@/types/recipe-service-type';
 
 type MealCardProps = {
   meal: Meal;
@@ -38,7 +38,7 @@ export default function MealCard({ meal, variant }: MealCardProps) {
 
   function seeMoreHandler(mealId: string): void {
     if (mealId && user?.token) {
-      /* router.push(`/recipe/${mealId}`); */
+      router.push(`/recipe/${mealId}`);
     }
   }
 
