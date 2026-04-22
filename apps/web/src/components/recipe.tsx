@@ -1,4 +1,4 @@
-import { Meal } from '@/types/recipe-service-type';
+import { Meal } from '@/types/recipe-type';
 import { RecipeIngredients, RecipeTagList, RecipeVideo } from './RecipeParts';
 import Image from 'next/image';
 import Tag from './Tag';
