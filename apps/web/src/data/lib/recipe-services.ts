@@ -17,13 +17,10 @@ export async function saveRecipe(mealId: string, category: string, token: string
       category,
     }),
   });
-
   if (!res.ok) {
     throw new Error('Failed to save recipe');
   }
-
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
@@ -35,23 +32,19 @@ export async function getRecipes(token: string): Promise<GetRecipeFromServiceTyp
     },
     cache: 'no-store',
   });
-
   if (!res.ok) {
     throw new Error('Failed to fetch recipes');
   }
-
   return res.json();
 }
 
 export async function deleteRecipe(mealId: string, token: string): Promise<void> {
-  console.log(`Deleting recipe with ID: ${mealId}`);
   const res = await fetch(`${RECIPE_API_URL}/meal/${mealId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
   if (!res.ok) {
     throw new Error('Failed to delete recipe');
   }
