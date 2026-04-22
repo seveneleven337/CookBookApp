@@ -51,4 +51,8 @@
   /*recipe*/
   --color-recipe-bg: #f2f2e4;
   --color-recipe-border: #f2f2e4;
+
+  /*button*/
+  --color-btn-bg-secondary: #f1f1e4;
+  --color-btn-bg-secondary-hover: #e4e4d7;
 }
