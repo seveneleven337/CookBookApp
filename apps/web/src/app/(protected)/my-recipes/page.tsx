@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/data/store/authStore';
 import RecipesFrame from '@/components/RecipesFrame';
 import ConfirmationMessage from '@/components/ui/ConfirmationMessage';
-import { useRecipes } from '@/data/react-query/useRecipeService';
+import { useDeleteRecipe, useRecipes } from '@/data/react-query/useRecipeService';
 
-const CATEGORIES = ['All', 'Breakfast', 'Salads', 'Meat', 'Desserts'] as const;
+const CATEGORIES = ['All', 'Breakfast', 'Vegetarian', 'Dessert', 'Salad'] as const;
 type Category = (typeof CATEGORIES)[number];
 
 const MyRecipesPage = () => {
@@ -20,9 +20,8 @@ const MyRecipesPage = () => {
     error: errorMyRecipesLoading,
   } = useRecipes(user?.token ?? null);
   const [filter, setFilter] = useState<Category>('All');
-  useEffect(() => {
-    console.log(myRecipes);
-  }, [myRecipes]);
+  const deleteRecipe = useDeleteRecipe(user?.token ?? null);
+
   if (errorMyRecipesLoading) {
     return <div>Error</div>;
   }
@@ -31,13 +30,27 @@ const MyRecipesPage = () => {
     return <div>Loading...</div>;
   }
 
-  function clearAll() {
-    throw new Error('Function not implemented yet.');
-  }
+  const clearAll = () => {
+    if (myRecipes) {
+      myRecipes.forEach((meal) => {
+        deleteRecipe.mutate(meal.idMeal);
+      });
+    }
+  };
 
-  function goToHome() {
+  const goToHome = () => {
     router.push('/home');
-  }
+  };
+
+  const filteredRecipes = myRecipes?.filter((meal) => {
+    const matchesSearch =
+      search.trim() === '' ? true : meal.strMeal.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      filter === 'All' ? true : meal.strCategory.toLowerCase() === filter.toLowerCase();
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,7 +135,7 @@ const MyRecipesPage = () => {
               <RecipesFrame
                 title={'Recommended For Your Kitchen'}
                 subtitle={'*Handpicked recipes just for you'}
-                meals={myRecipes ?? []}
+                meals={filteredRecipes ?? []}
                 variant="myRecipe"
               />
             </div>
