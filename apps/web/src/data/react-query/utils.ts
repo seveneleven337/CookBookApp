@@ -1,5 +1,5 @@
-import { RecipeByCategory } from '@/types/recipe-service-type';
-import { Meal } from '@/types/recipe-service-type';
+import { RecipeByCategory } from '@/types/recipe-type';
+import { Meal } from '@/types/recipe-type';
 
 export function recipesByFilterSanitizer(meals: RecipeByCategory[], category: string) {
   if (!meals || !Array.isArray(meals)) {
