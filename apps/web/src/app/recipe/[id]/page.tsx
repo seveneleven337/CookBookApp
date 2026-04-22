@@ -1,4 +1,5 @@
 'use client';
+import NavBar from '@/components/NavBar';
 import Recipe from '@/components/recipe';
 import { useRecipeById } from '@/data/react-query/useRecipe';
 import { use } from 'react';
@@ -15,5 +16,11 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
     return <div className="text-center p-6">Recipe not found.</div>;
   }
 
-  return <Recipe meal={meal} />;
+  return (
+    <div className="flex flex-col min-h-screen bg-background">
+      <NavBar />
+      <Recipe meal={meal} />
+      <footer />
+    </div>
+  );
 }

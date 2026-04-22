@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/data/store/authStore';
+import NavBar from '@/components/NavBar';
+import Footer from '@/components/Footer';
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -22,5 +24,11 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
 
   if (!user?.token) return null;
 
-  return <>{children}</>;
+  return (
+    <div className="flex flex-col min-h-screen bg-background">
+      <NavBar />
+      {children}
+      <Footer />
+    </div>
+  );
 }

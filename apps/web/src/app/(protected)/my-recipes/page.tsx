@@ -4,7 +4,6 @@ import { Bookmark } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/data/store/authStore';
 import RecipesFrame from '@/components/RecipesFrame';
-import { useRecommendedRecipes } from '@/data/react-query/useRecommendRecipe';
 import ConfirmationMessage from '@/components/ui/ConfirmationMessage';
 import { useRecipes } from '@/data/react-query/useRecipeService';
 
