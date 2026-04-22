@@ -122,7 +122,7 @@ export default function MealCard({ meal, variant }: MealCardProps) {
           </div>
         ) : (
           <div className="mb-2">
-            <h2 className="text-xl font-bold text-[#024610] overflow-hidden line-clamp-2">
+            <h2 className="text-xl font-bold text-[#024610] overflow-hidden line-clamp-1">
               {meal.strMeal}
             </h2>
 
