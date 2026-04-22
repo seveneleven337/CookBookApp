@@ -151,7 +151,7 @@ export default function MealCard({ meal, variant }: MealCardProps) {
             See more
           </button>
           <button
-            onClick={() => removeRecipe(meal.idMeal, meal.strMeal)}
+            onClick={() => removeRecipe(meal.idMeal)}
             className="bg-btn-bg-secondary px-3 py-2 rounded-2xl shadow-md transition hover:bg-btn-bg-secondary-hover flex items-center justify-center"
           >
             <Trash2 className="h-4 w-4 text-red-500 hover:text-green-500 transition" />
