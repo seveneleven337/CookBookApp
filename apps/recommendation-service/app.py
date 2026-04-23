@@ -8,11 +8,16 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import List
 
-app = FastAPI()
+app = FastAPI(
+    root_path="/api/recommendation",
+    docs_url="/docs",
+    redoc_url=None,
+    openapi_url="/openapi.json"
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # change in production
+    allow_origins=["http://localhost", "https://cookbook.fi"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
