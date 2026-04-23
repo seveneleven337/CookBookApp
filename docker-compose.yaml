@@ -40,7 +40,7 @@ services:
       RECOMMENDED_RECIPES_URL: http://recommendation-service:${RECOMMENDATION_SERVICE_PORT}/api/recommend
       NEXT_PUBLIC_SENTRY_DSN: https://<key>@sentry.cookbook.fi/1
       SENTRY_DSN: https://<key>@sentry.cookbook.fi/1
-      SENTRY_ENVIRONMENT: production
+      SENTRY_ENVIRONMENT: web
 
     labels:
       - 'traefik.enable=true'
