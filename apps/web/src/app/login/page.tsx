@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/data/react-query/useAuth';
 import { useUserStore } from '@/data/store/authStore';
 import { toast } from 'sonner';
+import * as Sentry from '@sentry/nextjs';
 
 const fieldClass =
   'border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition';
@@ -27,6 +28,7 @@ export default function LoginPage() {
 
     if (!email || !password) {
       setFormError('Please enter email and password');
+      Sentry.captureMessage('Login form submission error: Missing email or password');
       toast.error('Please enter email and password', { position: 'bottom-right' });
       return;
     }
@@ -36,6 +38,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (error) {
+      Sentry.captureMessage('Login form submission error: Invalid credentials');
       toast.error('An error occurred during login. Please check your credentials and try again.', {
         position: 'bottom-right',
       });
