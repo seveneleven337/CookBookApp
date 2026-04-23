@@ -3,6 +3,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/data/react-query/useAuth';
 import { toast } from 'sonner';
+import * as Sentry from '@sentry/nextjs';
 
 const fieldClass =
   'border border-gray-200 rounded-2xl px-4 pt-1 pb-3 bg-input-bg focus-within:border-primary transition';
@@ -27,6 +28,7 @@ export default function RegisterPage() {
 
     if (!name || !lastName || !email || !password) {
       setFormError('Please fill in all fields.');
+      Sentry.captureMessage('Registration form submission error: Missing required fields');
       toast.error('Please fill in all fields.', { position: 'bottom-right' });
       return;
     }
@@ -36,6 +38,9 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (error) {
+      Sentry.captureMessage(
+        'Registration form submission error: An error occurred during registration',
+      );
       toast.error('An error occurred during registration. Please try again.', {
         position: 'bottom-right',
       });
