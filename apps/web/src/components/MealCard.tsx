@@ -9,6 +9,7 @@ import { useDeleteRecipe, useSaveRecipe } from '@/data/react-query/useRecipeServ
 import { Trash2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { Meal } from '@/types/recipe-service-type';
+import * as Sentry from '@sentry/nextjs';
 
 type MealCardProps = {
   meal: Meal;
@@ -58,6 +59,7 @@ export default function MealCard({ meal, variant }: MealCardProps) {
 
   useEffect(() => {
     if (isSaveError) {
+      Sentry.captureMessage('Failed to save recipe');
       toast.error('Failed to save recipe.', {
         description: 'Please try again later.',
       });
@@ -74,6 +76,7 @@ export default function MealCard({ meal, variant }: MealCardProps) {
 
   useEffect(() => {
     if (isDeleteError) {
+      Sentry.captureMessage('Failed to delete recipe');
       toast.error('Failed to delete recipe.', {
         description: 'Please try again later.',
       });
