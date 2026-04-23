@@ -16,11 +16,11 @@ spec:
       imagePullSecrets:
         - name: dockerhub-creds
       containers:
-        - name: web
-          image: walaska/cookbookapp:recommendation-service
+        - name: recommendation
+          image: walaska/cookbookapp:recommendation
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           env:
             - name: JWT_SECRET
               valueFrom:
