@@ -16,10 +16,10 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-  org: "cookbookapp",
-
-  project: "internal",
-  sentryUrl: "https://sentry.cookbook.fi/",
+  org: 'cookbookapp',
+  project: 'internal',
+  sentryUrl: 'https://sentry.cookbook.fi/',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
