@@ -25,7 +25,7 @@ jobs:
             dockerfile: apps/docker/Dockerfile.recipe-management-service
           - service: web
             dockerfile: apps/docker/Dockerfile.web
-          - service: recommendation-service
+          - service: recommendation
             dockerfile: apps/docker/Dockerfile.recommendation
 
     steps:
