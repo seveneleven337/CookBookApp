@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import { Sequelize } from 'sequelize';
 import { AUTH_DB_NAME, AUTH_DB_USER, AUTH_DB_PASSWORD, DB_HOST, DB_PORT } from './env';
 const sequelize = new Sequelize(AUTH_DB_NAME, AUTH_DB_USER, AUTH_DB_PASSWORD, {
@@ -21,6 +22,7 @@ export const connectDB = async () => {
     console.log('Tables synchronized');
     console.log('Database connected successfully');
   } catch (error) {
+    Sentry.captureException(error);
     console.error('Unable to connect to the database:', error);
     process.exit(1);
   }

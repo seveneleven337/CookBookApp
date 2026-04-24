@@ -1,6 +1,7 @@
 //dotenv configuration is used on local development environment when is use npm run dev
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../.env.dev' });
+import * as Sentry from '@sentry/node';
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -34,13 +35,19 @@ export const authenticateUser = async ({
   password: string;
 }) => {
   const user = await User.findOne({ where: { email } });
-  if (!user) throw new Error('Invalid credentials');
+  if (!user) {
+    Sentry.captureException(new Error('Invalid credentials'));
+    throw new Error('Invalid credentials');
+  }
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error('Invalid credentials');
+  if (!isMatch) {
+    Sentry.captureException(new Error('Invalid credentials'));
+    throw new Error('Invalid credentials');
+  }
 
   const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
-    expiresIn: '1h',
+    expiresIn: '6h',
   });
 
   return {
