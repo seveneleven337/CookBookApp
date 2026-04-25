@@ -5,7 +5,7 @@ import {
   getMealListByCategory,
   getRandomMeal,
 } from '../lib/recipe-api';
-import { mealSanitizer, recipesByFilterSanitizer } from './utils';
+import { mealSanitizer, recipesByFilterSanitizer } from '../../utils/utils';
 
 export function useRecipe() {
   return useQuery({
