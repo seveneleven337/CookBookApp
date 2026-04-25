@@ -4,11 +4,10 @@
   "scripts": {
     "lint": "eslint apps/ --max-warnings=0",
     "format": "prettier --write apps/**/*.{ts,tsx,js,jsx,json,md}",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "prettier": "^3.8.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^9.39.4",
@@ -19,6 +18,7 @@
     "globals": "^17.4.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "prettier": "^3.8.1",
     "typescript-eslint": "^8.56.1"
   }
 }
