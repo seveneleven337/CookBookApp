@@ -19,7 +19,7 @@ export default function HomePage() {
       <CategoryFrame />
       {/* 6 recommended recipes */}
       <RecipesFrame
-        title={'Recommended For Your Kitchen'}
+        title={'Recommendeds For Your Kitchen'}
         subtitle={'*Handpicked recipes just for you'}
         meals={recommendedMeals || []}
         variant="default"
@@ -27,7 +27,7 @@ export default function HomePage() {
       {/* 6 random recipes */}
       <RecipesFrame
         title={'Latest From The Kitchen'}
-        subtitle={'*Good food is the foundation for genuine happiness'}
+        subtitle={'*Good food is the foundations for genuine happiness'}
         meals={meals || []}
         variant="default"
       />
