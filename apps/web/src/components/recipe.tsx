@@ -69,7 +69,6 @@ export default function Recipe({ meal }: { meal: Meal }) {
             {/* Video */}
             <section>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">▶️</span>
                 <h2 className="text-xl font-semibold text-text-title">Video Tutorial</h2>
               </div>
               {meal.strYoutube && <RecipeVideo youtubeUrl={meal.strYoutube} />}
