@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Tag from './Tag';
 import { Meal } from '@/types/recipe-service-type';
 
-function getIngredients(meal: Meal) {
+export function getIngredients(meal: Meal) {
   const ingredients: { ingredient: string; measure: string }[] = [];
   for (let i = 1; i <= 20; i++) {
     const ingredient = meal[`strIngredient${i}`];
