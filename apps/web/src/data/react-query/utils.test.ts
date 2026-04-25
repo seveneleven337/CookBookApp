@@ -1,4 +1,4 @@
-import { mealSanitizer, recipesByFilterSanitizer } from './utils';
+import { mealSanitizer, recipesByFilterSanitizer } from '../../utils/utils';
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 describe('recipesByFilterSanitizer', () => {
