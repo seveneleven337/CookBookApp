@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/display-name */
 import { render, screen, fireEvent } from '@testing-library/react';
 import MyRecipesPage from './page';
 
@@ -33,11 +31,17 @@ jest.mock('@/data/react-query/useRecipeService', () => ({
   }),
 }));
 
-jest.mock('@/components/RecipesFrame', () => () => <div data-testid="recipes-frame" />);
+jest.mock('@/components/RecipesFrame', () => {
+  return function RecipesFrameMock() {
+    return <div data-testid="recipes-frame" />;
+  };
+});
 
-jest.mock('@/components/ui/ConfirmationMessage', () => (props: any) => (
-  <button onClick={props.onClick}>Remove All</button>
-));
+jest.mock('@/components/ui/ConfirmationMessage', () => {
+  return function ConfirmationMessageMock(props: { onClick: () => void }) {
+    return <button onClick={props.onClick}>Remove All</button>;
+  };
+});
 
 describe('MyRecipesPage', () => {
   it('renders recipes when data exists', () => {
@@ -49,7 +53,6 @@ describe('MyRecipesPage', () => {
   it('calls clearAll when clicking remove all', () => {
     render(<MyRecipesPage />);
 
-    const button = screen.getByText('Remove All');
-    fireEvent.click(button);
+    fireEvent.click(screen.getByText('Remove All'));
   });
 });
