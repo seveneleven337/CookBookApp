@@ -71,4 +71,4 @@ The Auth Service is a standalone microservice responsible for user authenticatio
 
 ## Recipe Management Service
 
-The Recipe Management Service stores and serves user recipes (PostgreSQL, Express). HTTP routes are mounted at `/api/recipes` (for example `GET /api/recipes?user_id=1`). Health: `GET /health`.
+The Recipe Management Service stores and serves user recipes (PostgreSQL, Express). HTTP routes are mounted at `/api/recipes` (for example `GET /api/recipes?user_id=1`).
