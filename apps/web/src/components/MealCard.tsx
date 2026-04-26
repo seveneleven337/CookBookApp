@@ -35,6 +35,12 @@ export default function MealCard({ meal, variant }: MealCardProps) {
     if (mealId && user?.token) {
       save({ mealId, category });
     }
+    if (!user?.token) {
+      toast.warning('You need to be logged in to save recipes.', {
+        description: 'Please log in and try again.',
+      });
+      router.push('/redirect');
+    }
   }
 
   function seeMoreHandler(mealId: string): void {
