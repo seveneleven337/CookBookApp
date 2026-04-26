@@ -46,12 +46,11 @@ auth-service: implement authentication logic
 
 ### Recipe Management Service
 
-recipe-management-service: implement feature
+recipe-management: implement feature
 
 ### Recommendation service
 
-recommendation-service
----
+recommendation-service: implement feature
 
 ## General Guidelines
 
@@ -68,7 +67,15 @@ docker compose --env-file .env.dev up -d --build
 ## Auth Service
 
 The Auth Service is a standalone microservice responsible for user authentication.
+**Endpoint:** https://cookbook.fi/api/auth/docs/
 
 ## Recipe Management Service
 
-The Recipe Management Service stores and serves user recipes (PostgreSQL, Express). HTTP routes are mounted at `/api/recipes` (for example `GET /api/recipes?user_id=1`). Health: `GET /health`.
+The Recipe Management Service stores and serves user recipes.
+**Endpoint:** https://cookbook.fi/api/recipes-management/docs/
+
+## Recipe Recommendation Service
+
+The Recipe Recommendation Service analyzes a user’s saved or liked recipes to understand their preferences.
+It then recommends new personalized recipes based on their tastes, ingredients, and cooking style.
+**Endpoint:** https://cookbook.fi/api/recommendation/docs/
