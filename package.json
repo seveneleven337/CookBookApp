@@ -5,6 +5,7 @@
     "format": "prettier --write apps/**/*.{ts,tsx,js,jsx,json,md}",
     "lint": "eslint .",
     "format:web": "npm --prefix apps/web run format:fix",
+    "test:web": "npm --prefix apps/web run test",
     "prepare": "husky"
   },
   "lint-staged": {
